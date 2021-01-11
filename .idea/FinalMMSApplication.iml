@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="CheckStyle-IDEA-Module">
+    <option name="configuration">
+      <map />
+    </option>
+  </component>
+  <component name="FacetManager">
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map>
+          <unit-entry name="sessionFactory" value="6bd75131-cc0b-4449-9fe2-65695bb43ecd" />
+        </datasource-map>
+        <naming-strategy-map />
+      </configuration>
+    </facet>
+  </component>
+</module>
