@@ -1,27 +1,27 @@
-package com.MmsApplication.config.validator;
-
-import com.MmsApplication.config.model.Client;
-import com.MmsApplication.config.service.ClientService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
-
-@Component
-@RequiredArgsConstructor
-public class ClientValidator implements Validator {
-
-  private final ClientService clientService;
-
-  @Override
-  public boolean supports(Class<?> aClass) {
-    return Client.class.equals(aClass);
-  }
-
-  @Override
-  public void validate(Object o, Errors errors) {
-    Client client = (Client) o;
-
+//package com.tsipadan.mmsapplication.validator;
+//
+//import com.tsipadan.mmsapplication.model.Client;
+//import com.tsipadan.mmsapplication.service.ClientService;
+//import lombok.RequiredArgsConstructor;
+//import org.springframework.stereotype.Component;
+//import org.springframework.validation.Errors;
+//import org.springframework.validation.Validator;
+//
+//@Component
+//@RequiredArgsConstructor
+//public class ClientValidator implements Validator {
+//
+//  private final ClientService clientService;
+//
+//  @Override
+//  public boolean supports(Class<?> aClass) {
+//    return Client.class.equals(aClass);
+//  }
+//
+//  @Override
+//  public void validate(Object o, Errors errors) {
+//    Client client = (Client) o;
+//
 //    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName","NotEmpty");
 //    if(clients.getFirstName().length()< 4 || clients.getFirstName().length()>10){
 //      errors.rejectValue("firstName","Size.clientForm.firstName");
@@ -39,6 +39,6 @@ public class ClientValidator implements Validator {
 //    if (!clients.getPasswordConfirm().equals(clients.getPassword())) {
 //      errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
 //    }
-
-  }
-}
+//
+//  }
+//}

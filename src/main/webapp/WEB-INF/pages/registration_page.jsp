@@ -43,9 +43,9 @@
 <div class="cont">
     <div class="col-lg-12 d-flex justify-content-around ">
         <div class="col-lg-8 p-4" style="background: #9ddbe3">
-            <form:form method="POST" modelAttribute="registration_form" class="row g-2 col-md-12">
+            <form:form method="POST" modelAttribute="registrationForm" class="row g-2 col-md-12">
                 <spring:bind path="firstName">
-                    <div class="col-md-6 ${status.error ? 'has-error' : ''}">
+                    <div class="col-md-6" ${status.error ? 'has-error' : ''}>
                         <label for="firstname" class="form-label">First Name</label>
                         <form:input type="text" path="firstName" class="form-control" id="firstname"
                                     placeholder="Franck"/>
@@ -77,25 +77,25 @@
                 </spring:bind>
 
                 <spring:bind path="password">
-                    <div class="col-md-6 ${status.error ? 'has-error' : ''}">
+                    <div class="col-md-6" ${status.error ? 'has-error' : ''}>
                         <label for="inputpass" class="form-label">Password</label>
                         <form:input type="password" path="password" class="form-control" id="inputpass"
                                     placeholder="Turn on your brain"/>
                     </div>
                 </spring:bind>
                 <hr>
-                <spring:bind path="clientAddress.city">
+                <spring:bind path="city">
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">City</label>
-                        <form:input type="text" path="clientAddress.city" class="form-control" id="inputCity"
+                        <form:input type="text" path="city" class="form-control" id="inputCity"
                                     placeholder="Saint-P"/>
                     </div>
                 </spring:bind>
 
-                <spring:bind path="clientAddress.country">
+                <spring:bind path="country">
                     <div class="col-md-4">
                         <label for="inputState" class="form-label">Country</label>
-                        <form:select id="inputState" path="clientAddress.country" class="form-select">
+                        <form:select id="inputState" path="country" class="form-select">
                             <option selected>Choose</option>
                             <option>Russia</option>
                             <option>USA</option>
@@ -105,33 +105,35 @@
                     </div>
                 </spring:bind>
 
-                <spring:bind path="clientAddress.zip">
+                <spring:bind path="zip">
                     <div class="col-md-2">
                         <label for="inputZip" class="form-label">Zip</label>
-                        <form:input type="text" path="clientAddress.zip" class="form-control" id="inputZip"
+                        <form:input type="text" path="zip" class="form-control" id="inputZip"
                                     placeholder="198062"/>
                     </div>
                 </spring:bind>
 
-                <spring:bind path="clientAddress.street">
+                <spring:bind path="street">
                     <div class="col-md-6">
                         <label for="inputstreet" class="form-label">Street</label>
-                        <form:input type="text" path="clientAddress.street" class="form-control" id="inputstreet"
+                        <form:input type="text" path="street" class="form-control" id="inputstreet"
                                     placeholder="Lenina,st "/>
                     </div>
                 </spring:bind>
 
-                <spring:bind path="clientAddress.house">
+                <spring:bind path="house">
                     <div class="col-md-2">
                         <label for="inputhouse" class="form-label">House</label>
-                        <form:input type="number" path="clientAddress.house" class="form-control" id="inputhouse"/>
+                        <form:input type="text" path="house" class="form-control" id="inputhouse"
+                        placeholder="house number"/>
                     </div>
                 </spring:bind>
 
-                <spring:bind path="clientAddress.apartment">
+                <spring:bind path="apartment">
                     <div class="col-md-2">
                         <label for="inputkvr" class="form-label">Apartment</label>
-                        <form:input type="number" path="clientAddress.apartment" class="form-control" id="inputkvr"/>
+                        <form:input type="text" path="apartment" class="form-control" id="inputkvr"
+                        placeholder="apartment number"/>
                     </div>
                 </spring:bind>
 

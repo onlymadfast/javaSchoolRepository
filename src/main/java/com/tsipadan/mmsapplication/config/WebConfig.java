@@ -1,4 +1,4 @@
-package com.MmsApplication.config;
+package com.tsipadan.mmsapplication.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-@ComponentScan(basePackages = "com.MmsApplication")
+@ComponentScan(basePackages = "com.tsipadan.mmsapplication")
 @Configuration
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {

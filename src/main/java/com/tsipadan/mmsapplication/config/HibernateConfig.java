@@ -1,4 +1,4 @@
-package com.MmsApplication.config;
+package com.tsipadan.mmsapplication.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = "com.MmsApplication")
+@ComponentScan(basePackages = "com.tsipadan.mmsapplication")
 @EnableTransactionManagement
 @PropertySource(value = "classpath:db.properties")
 @RequiredArgsConstructor
@@ -44,7 +44,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("comMmsApplication.config.model");
+        sessionFactory.setPackagesToScan("com.tsipadan.mmsapplication.model");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

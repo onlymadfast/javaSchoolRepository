@@ -919,7 +919,7 @@ SELECT|sys.sys_config:null
 </ObjectGrants>
     </user>
     <table id="287" parent="2" name="addressclient"/>
-    <table id="288" parent="2" name="clients">
+    <table id="288" parent="2" name="client_table">
       <Collation>utf8_general_ci</Collation>
     </table>
     <table id="289" parent="2" name="role"/>
@@ -974,7 +974,7 @@ SELECT|sys.sys_config:null
     </key>
     <foreign-key id="300" parent="287" name="adressclient_clients_id_fk">
       <ColNames>client_id</ColNames>
-      <RefTableName>clients</RefTableName>
+      <RefTableName>client_table</RefTableName>
       <RefColNames>id</RefColNames>
       <OnUpdate>set-null</OnUpdate>
       <OnDelete>set-null</OnDelete>
@@ -1013,26 +1013,56 @@ SELECT|sys.sys_config:null
       <Position>7</Position>
       <DataType>varchar(20)|0s</DataType>
     </column>
-    <key id="308" parent="288" name="PRIMARY">
+    <column id="308" parent="288" name="country">
+      <Position>8</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="309" parent="288" name="city">
+      <Position>9</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="310" parent="288" name="zip">
+      <Position>10</Position>
+      <DataType>varchar(15)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="311" parent="288" name="street">
+      <Position>11</Position>
+      <DataType>varchar(30)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="312" parent="288" name="house">
+      <Position>12</Position>
+      <DataType>varchar(10)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="313" parent="288" name="apartment">
+      <Position>13</Position>
+      <DataType>varchar(10)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="314" parent="288" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="309" parent="289" name="id">
+    <column id="315" parent="289" name="id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="310" parent="289" name="name">
+    <column id="316" parent="289" name="name">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
     </column>
-    <column id="311" parent="289" name="clients">
+    <column id="317" parent="289" name="clients">
       <Position>3</Position>
       <DataType>int|0s</DataType>
     </column>
-    <key id="312" parent="289" name="PRIMARY">
+    <key id="318" parent="289" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

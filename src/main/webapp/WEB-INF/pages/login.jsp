@@ -45,7 +45,6 @@
             <form method="POST" action="/login" class="row g-2 col-md-12"> <%--spring security /login--%>
 
                 <div class="col-md-6 ${error != null ? 'has-error' : ''}">
-                    <span>${message}</span>
                     <label for="inputfname" class="form-label">First Name</label>
                     <input type="text" class="form-control" id="inputfname" placeholder="Enter your First Name">
                 </div>
@@ -53,7 +52,6 @@
                 <div class="col-md-6">
                     <label for="inputpass" class="form-label">Password</label>
                     <input type="password" class="form-control" id="inputpass" placeholder="Enter your password">
-                    <span>${error}</span>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </div>
 
@@ -64,11 +62,12 @@
                     </div>
                 </div>
 
-                <div class="col-12">
+                <div class="col-md-6">
                     <button type="submit" class="btn btn-primary">Sign in</button>
                 </div>
 
-                <h4 class="btn btn-md btn-success"><a class="btn" href="${contextPath}/registration">Create an account</a></h4>
+                <h4 class="col-md-6 btn btn-md btn-success">
+                    <a class="btn" href="${contextPath}/registration_page">Create an account</a></h4>
 
             </form>
         </div>

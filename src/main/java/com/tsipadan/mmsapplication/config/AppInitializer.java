@@ -1,4 +1,4 @@
-package com.MmsApplication.config;
+package com.tsipadan.mmsapplication.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

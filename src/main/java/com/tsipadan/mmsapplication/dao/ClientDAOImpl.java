@@ -1,25 +1,20 @@
-package com.MmsApplication.config.dao;
+package com.tsipadan.mmsapplication.dao;
 
-import com.MmsApplication.config.dto.ClientRegistrationDto;
-import com.MmsApplication.config.model.Client;
-import com.MmsApplication.config.model.ClientAddress;
+import com.tsipadan.mmsapplication.model.Client;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Repository
-public class ClientsDAOImpl implements ClientDAO {
+public class ClientDAOImpl implements ClientDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public ClientRegistrationDto saveClientAndAddress(Client client, ClientAddress clientAddress) {
+    public void saveClientAndAddress(Client client) {
         this.entityManager.persist(client);
-        this.entityManager.persist(clientAddress);
-
-        return null;
     }
 
     @Override
