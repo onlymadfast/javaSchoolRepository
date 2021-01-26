@@ -1,7 +1,6 @@
 package com.tsipadan.mmsapplication.model;
 
 import lombok.Data;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,6 @@ public class CartInfo {
 
   private CustomerInfo customerInfo;
 
-  @Getter
   private final List<CartLineInfo> cartLines = new ArrayList<>();
 
   public CartInfo() {}
@@ -28,8 +26,8 @@ public class CartInfo {
   }
 
   public void addProduct(ProductInfo productInfo, int quantity) {
-    CartLineInfo line = this.findLineByCode(productInfo.getCode());
 
+    CartLineInfo line = this.findLineByCode(productInfo.getCode());
     if (line == null) {
       line = new CartLineInfo();
       line.setQuantity(0);

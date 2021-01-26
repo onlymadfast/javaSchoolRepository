@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import java.util.List;
+import javax.persistence.Query;
 
 @Repository
 @Transactional
@@ -19,9 +19,18 @@ public class AccountDAOImpl implements AccountDAO {
 
   @Override
   public Account findAccount(String userName) {
-    TypedQuery<Account> query = entityManager.createQuery("SELECT userName FROM Account", Account.class);
-    List<Account> results = query.getResultList();
-    return (Account) results;
+
+      try{
+        String sql = "SELECT u from Account u WHERE u.userName = :userName";
+        Query query = entityManager.createQuery(sql,Account.class);
+        query.setParameter("userName", userName);
+        return (Account) query.getSingleResult();
+      } catch (NoResultException e){
+        return null;
+      }
+
+
+
   }
 
 }

@@ -14,26 +14,25 @@ public class CustomerInfoValidator implements Validator {
 
   @Override
   public boolean supports(Class<?> aClass) {
-    return aClass == CustomerInfo.class;
+    return CustomerInfo.class.equals(aClass);
   }
 
   @Override
-  public void validate(Object o, Errors errors) {
-    CustomerInfo customerInfo = (CustomerInfo) o;
+  public void validate(Object target, Errors errors) {
 
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "NotEmpty.customerForm.firstName");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "NotEmpty.customerForm.lastName");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "birthday", "NotEmpty.customerForm.birthday");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty.customerForm.password");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "country", "NotEmpty.customerForm.country");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "city", "NotEmpty.customerForm.city");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "zip", "NotEmpty.customerForm.zip");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty.customerForm.email");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "street", "NotEmpty.customerForm.street");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "house", "NotEmpty.customerForm.house");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "apartment", "NotEmpty.customerForm.apartment");
+    CustomerInfo customerInfo = (CustomerInfo) target;
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "customerFirstName", "NotEmpty.customerForm.firstName");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "customerLastName", "NotEmpty.customerForm.lastName");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "customerBirthday", "NotEmpty.customerForm.birthday");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "customerEmail", "NotEmpty.customerForm.email");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "customerCountry", "NotEmpty.customerForm.country");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "customerCity", "NotEmpty.customerForm.city");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "customerZip", "NotEmpty.customerForm.zip");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "customerStreet", "NotEmpty.customerForm.street");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "customerHouse", "NotEmpty.customerForm.house");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "customerApartment", "NotEmpty.customerForm.apartment");
 
-    if(!emailValidator.isValid(customerInfo.getEmail())){
+    if(!emailValidator.isValid(customerInfo.getCustomerEmail())){
       errors.rejectValue("email", "Pattern.customerForm.email");
     }
 

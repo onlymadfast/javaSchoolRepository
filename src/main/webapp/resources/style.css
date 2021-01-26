@@ -2,22 +2,22 @@ html {
     background: white;
 }
 h3 {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 body {
     max-width: 860px;
     min-width: 360px;
-    margin: 0px auto;
+    margin: 0 auto;
     background: #F8F8F8;
-    padding:0px 5px;
+    padding:0 5px;
     text-align:center;
 }
 
 .page-title  {
     font-size:120%;
     text-align: left;
-    margin:10px 0px;
+    margin:10px 0;
 }
 .header-container {
     text-align: left;
@@ -33,13 +33,13 @@ body {
 }
 .header-container .header-bar  a  {
     color: white;
-    font-size: bold;
+    font-size: large;
 }
 
 .footer-container {
     text-align: center;
     margin-top: 10px;
-    padding: 5px 0px 0px 0px;
+    padding: 5px 0 0 0;
     border-top: 1px solid #ccc;
 }
 .menu-container {
@@ -55,25 +55,25 @@ body {
 
 .site-name {
     font-size:200%;
-    margin:10px 10px 10px 0px;
+    margin:10px 10px 10px 0;
     padding: 5px;
 }
 
 .container  {
-    margin: 5px 0px;
+    margin: 5px 0;
 }
 
 .demo-container, .login-container, .account-container {
     padding: 5px;
     border: 1px solid #ccc;
     text-align:left;
-    margin:20px 0px;
+    margin:20px 0;
 }
 
 .customer-info-container {
     text-align: left;
     border: 1px solid #ccc;
-    padding: 0px 5px;
+    padding: 0 5px;
 }
 .product-preview-container {
     border: 1px solid #ccc;
@@ -88,7 +88,6 @@ body {
     width: 50px;
 }
 
-
 .product-image {
     width: 120px;
     height: 80px;
@@ -99,7 +98,6 @@ ul {
     padding-left: 5px;
     margin:5px;
 }
-
 
 .navi-item {
     margin: 5px 5px 5px 20px;

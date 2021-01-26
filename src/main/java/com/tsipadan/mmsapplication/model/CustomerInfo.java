@@ -5,16 +5,16 @@ import lombok.Data;
 @Data
 public class CustomerInfo {
 
-  private String firstName;
-  private String lastName;
-  private String birthday;
-  private String email;
-  private String country;
-  private String city;
-  private String zip;
-  private String street;
-  private String house;
-  private String apartment;
+  private String customerFirstName;
+  private String customerLastName;
+  private String customerBirthday;
+  private String customerEmail;
+  private String customerCountry;
+  private String customerCity;
+  private String customerZip;
+  private String customerStreet;
+  private String customerHouse;
+  private String customerApartment;
 
   private boolean valid;
 

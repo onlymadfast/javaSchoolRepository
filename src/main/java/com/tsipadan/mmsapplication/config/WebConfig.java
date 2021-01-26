@@ -32,7 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
-        resourceBundleMessageSource.setBasenames("messages/validation.properties");
+        resourceBundleMessageSource.setBasenames("messages/validation_en.properties");
         return resourceBundleMessageSource;
     }
 

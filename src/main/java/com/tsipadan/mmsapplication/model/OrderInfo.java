@@ -13,7 +13,7 @@ public class OrderInfo {
   private Date orderDate;
   private double amount;
 
-  private String customerName;
+  private String customerFirstName;
   private String customerEmail;
 
   private String customerCountry;
@@ -26,7 +26,7 @@ public class OrderInfo {
   private List<OrderDetailInfo> details;
 
   public OrderInfo(String id, int orderNum, Date orderDate,
-                   double amount, String customerName,
+                   double amount, String customerFirstName,
                    String customerEmail, String customerCountry,
                    String customerCity, String customerZip,
                    String customerStreet, String customerHouse,
@@ -35,7 +35,7 @@ public class OrderInfo {
     this.orderNum = orderNum;
     this.orderDate = orderDate;
     this.amount = amount;
-    this.customerName = customerName;
+    this.customerFirstName = customerFirstName;
     this.customerEmail = customerEmail;
     this.customerCountry = customerCountry;
     this.customerCity = customerCity;

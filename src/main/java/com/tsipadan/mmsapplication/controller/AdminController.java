@@ -8,7 +8,7 @@ import com.tsipadan.mmsapplication.model.PaginationResult;
 import com.tsipadan.mmsapplication.model.ProductInfo;
 import com.tsipadan.mmsapplication.validator.ProductInfoValidator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,18 +16,17 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
 @Controller
 @Transactional
-@EnableWebMvc
 @RequiredArgsConstructor
 public class AdminController {
 
@@ -35,18 +34,10 @@ public class AdminController {
   private final ProductDAO productDAO;
   private final ProductInfoValidator productInfoValidator;
 
-  @InitBinder
+  @InitBinder("productInfoValidator")
   public void myInitBinder(WebDataBinder dataBinder) {
-    Object target = dataBinder.getTarget();
-    if (target == null) {
-      return;
-    }
-    System.out.println("Target=" + target);
-
-    if (target.getClass() == ProductInfo.class) {
-      dataBinder.setValidator(productInfoValidator);
-      dataBinder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
-    }
+    dataBinder.setValidator(productInfoValidator);
+    dataBinder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
   }
 
   @GetMapping(value = "/log_in")
@@ -57,6 +48,14 @@ public class AdminController {
   @GetMapping(value = "/accountInfo")
   public String accountInfo(Model model) {
     UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    /*
+    TODO
+      - logback-spring.xml
+      - @Slf4j
+      - Optional
+     */
+
     System.out.println(userDetails.getPassword());
     System.out.println(userDetails.getUsername());
     System.out.println(userDetails.isEnabled());
@@ -82,7 +81,7 @@ public class AdminController {
   }
 
   @GetMapping(value = "/product")
-  public String product(Model model, @RequestParam(value = "code", defaultValue = "") String code) {
+  public String showProduct(Model model, @RequestParam(value = "code", defaultValue = "") String code) {
     ProductInfo productInfo = null;
     if (code != null && code.length() > 0) {
       productInfo = productDAO.findProductInfo(code);
@@ -97,10 +96,10 @@ public class AdminController {
 
   @PostMapping(value = "/product")
   @Transactional(propagation = Propagation.NEVER)
-  public String productSave(Model model, @ModelAttribute("productForm") @Validated ProductInfo productInfo,
-                            BindingResult result, final RedirectAttributes redirectAttributes) {
+  public String saveProduct(Model model, @ModelAttribute("productForm") @Validated ProductInfo productInfo,
+                            BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
 
-    if (result.hasErrors()) {
+    if (bindingResult.hasErrors()) {
       return "product";
     }
     try {
@@ -114,7 +113,7 @@ public class AdminController {
   }
 
   @GetMapping(value = "/order")
-  public String orderView(Model model, @RequestParam("orderId") String orderId) {
+  public String viewOrder(Model model, @RequestParam("orderId") String orderId) {
     OrderInfo orderInfo = null;
     if (orderId != null) {
       orderInfo = this.orderDAO.getOrderInfo(orderId);

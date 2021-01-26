@@ -9,12 +9,15 @@ import com.tsipadan.mmsapplication.entity.Product;
 import com.tsipadan.mmsapplication.model.ProductInfo;
 import com.tsipadan.mmsapplication.util.Utils;
 import com.tsipadan.mmsapplication.validator.CustomerInfoValidator;
+import com.tsipadan.mmsapplication.validator.ProductInfoValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -31,36 +34,26 @@ import java.io.IOException;
 @EnableWebMvc
 public class BossController {
 
-  private final CustomerInfoValidator customerInfoValidator;
   private final OrderDAO orderDAO;
   private final ProductDAO productDAO;
+  private final CustomerInfoValidator customerInfoValidator;
 
-  @InitBinder
+  @InitBinder("customerInfoValidator")
   public void myInitBinder(WebDataBinder dataBinder) {
-    Object target = dataBinder.getTarget();
-    if (target == null) {
-      return;
-    }
-    System.out.println("Target=" + target);
-
-    if (target.getClass() == CartInfo.class) {
-      dataBinder.setValidator(customerInfoValidator);
-    } else if (target.getClass() == CustomerInfo.class) {
-      dataBinder.setValidator(customerInfoValidator);
-    }
+    dataBinder.setValidator(customerInfoValidator);
   }
 
-  @GetMapping(value = "/403")
-  public String accessDenied() {
-    return "/403";
-  }
-
-  @GetMapping(value = "/")
-  public String home() {
+  @RequestMapping(value = "/home")
+  public String home(Model model) {
     return "index";
   }
 
-  @GetMapping(value = "/productList")
+  @RequestMapping(value = "/403")
+  public String accessDenied(Model model) {
+    return "403";
+  }
+
+  @RequestMapping(value = "/productList")
   public String listProductHandler(Model model,
                                    @RequestParam(value = "name", defaultValue = "") String likeName,
                                    @RequestParam(value = "page", defaultValue = "1") int page) {
@@ -68,14 +61,13 @@ public class BossController {
     final int maxNavigationPage = 10;
 
     PaginationResult<ProductInfo> result = productDAO.queryProducts(page, maxResult, maxNavigationPage, likeName);
-
     model.addAttribute("paginationProducts", result);
     return "productList";
   }
 
   @RequestMapping(value = "/buyProduct")
   public String listProductHandler(HttpServletRequest request, Model model,
-                                   @RequestParam(value = "code", defaultValue = "") String code) {
+                                   @RequestParam(value = "code") String code) {
 
     Product product = null;
     if (code != null && code.length() > 0) {
@@ -89,7 +81,22 @@ public class BossController {
     return "redirect:/shoppingCart";
   }
 
-  @RequestMapping(value = "/shoppingCartRemoveProduct")
+  @GetMapping(value = "/shoppingCart")
+  public String shoppingCartHandler(HttpServletRequest request, Model model) {
+    CartInfo myCart = Utils.getCartInSession(request);
+    model.addAttribute("cartForm", myCart);
+    return "shoppingCart";
+  }
+
+  @PostMapping(value = "/shoppingCart")
+  public String shoppingCartUpdateQuantityHandler(HttpServletRequest request, Model model,
+                                                  @ModelAttribute("cartForm") CartInfo cartForm) {
+    CartInfo cartInfo = Utils.getCartInSession(request);
+    cartInfo.updateQuantity(cartForm);
+    return "redirect:/shoppingCart";
+  }
+
+  @GetMapping(value = "/shoppingCartRemoveProduct")
   public String removeProductHandler(HttpServletRequest request, Model model,
                                      @RequestParam(value = "code", defaultValue = "") String code) {
     Product product = null;
@@ -102,21 +109,6 @@ public class BossController {
       cartInfo.removeProduct(productInfo);
     }
     return "redirect:/shoppingCart";
-  }
-
-  @PostMapping(value = "/shoppingCart")
-  public String shoppingCartUpdateQuantity(HttpServletRequest request, Model model,
-                                      @ModelAttribute("cartForm") CartInfo cartForm) {
-    CartInfo cartInfo = Utils.getCartInSession(request);
-    cartInfo.updateQuantity(cartForm);
-    return "redirect:/shoppingCart";
-  }
-
-  @GetMapping(value = "/shoppingCart")
-  public String shoppingCartHandler(HttpServletRequest request, Model model) {
-    CartInfo myCart = Utils.getCartInSession(request);
-    model.addAttribute("cartForm", myCart);
-    return "shoppingCart";
   }
 
   @GetMapping(value = "/shoppingCartCustomer")
@@ -135,9 +127,10 @@ public class BossController {
 
   @PostMapping(value = "/shoppingCartCustomer")
   public String shoppingCartCustomerSave(HttpServletRequest request, Model model,
-                                         @ModelAttribute("customerForm") @Validated CustomerInfo customerForm,
-                                         BindingResult result, final RedirectAttributes redirectAttributes) {
-    if (result.hasErrors()) {
+                                         @ModelAttribute("customerForm")
+                                         @Validated CustomerInfo customerForm,
+                                         BindingResult bindingresult, final RedirectAttributes redirectAttributes) {
+    if (bindingresult.hasErrors()) {
       customerForm.setValid(false);
       return "shoppingCartCustomer";
     }
@@ -155,12 +148,13 @@ public class BossController {
     } else if (!cartInfo.isValidCustomer()) {
       return "redirect:/shoppingCartCustomer";
     }
+    model.addAttribute("myCart", cartInfo);
     return "shoppingCartConfirmation";
   }
 
   @PostMapping(value = "/shoppingCartConfirmation")
-  @Transactional(propagation = Propagation.NEVER)
-  public String shoppingCartConfirmationSave(HttpServletRequest request, Model model) {
+  @Transactional(propagation = Propagation.SUPPORTS)
+  public String shoppingCartConfirmationSend(HttpServletRequest request, Model model) {
     CartInfo cartInfo = Utils.getCartInSession(request);
     if (cartInfo.isEmpty()) {
       return "redirect:/shoppingCart";
@@ -168,11 +162,12 @@ public class BossController {
       return "redirect:/shoppingCartCustomer";
     }
 
-    try {
+//    try {
       orderDAO.saveOrder(cartInfo);
-    } catch (Exception e) {
-      return "shoppingCartConfirmation";
-    }
+//    } catch (Exception e) {
+//      return "shoppingCartConfirmation";
+//    }
+
 
     Utils.removeCartInSession(request);
     Utils.storeLastOrderedCartInSession(request, cartInfo);
@@ -202,37 +197,4 @@ public class BossController {
     response.getOutputStream().close();
   }
 
-
-
-
-
-//  @GetMapping(value = "/registration")
-//  public ModelAndView view_registration() {
-//    final ModelAndView modelAndView = new ModelAndView();
-//    modelAndView.addObject("registrationForm", new Client());
-//    modelAndView.setViewName("registration_page");
-//    return modelAndView;
-//  }
-//
-//  @PostMapping(value = "/registration")
-//  public ModelAndView addClient(@ModelAttribute("registrationForm")
-//                                    ClientDto clientDto, BindingResult bindingResult){
-//    final ModelAndView modelAndView = new ModelAndView();
-//    clientService.saveClientAndAddressByDto(clientDto);
-//    modelAndView.setViewName("redirect:/welcome");
-//    return modelAndView;
-//  }
-//
-//  @GetMapping(value = "/login")
-//  public ModelAndView login(String error, String logout){
-//    final ModelAndView modelAndView = new ModelAndView();
-//    if (error != null){
-//      modelAndView.addObject("error", "Your firstName and password is invalid.");
-//    }
-//    if (logout != null){
-//      modelAndView.addObject("message", "You have been logged out successfully.");
-//    }
-//    modelAndView.setViewName("login");
-//    return modelAndView;
-//  }
 }

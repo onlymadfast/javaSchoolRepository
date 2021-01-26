@@ -12,7 +12,7 @@ public class Order {
 
   @Id
   @Column(name = "ID", length = 50)
-  private String ID;
+  private String id;
 
   @Column(name = "Amount",nullable = false)
   private double amount;
@@ -24,33 +24,33 @@ public class Order {
   private int orderNum;
 
   @Column(name = "Customer_FirstName", nullable = false)
-  private String firstName;
+  private String customerFirstName;
 
   @Column(name = "Customer_LastName", nullable = false)
-  private String lastName;
+  private String customerLastName;
 
   @Column(name = "Customer_Birthday", nullable = false)
-  private String birthday;
+  private String customerBirthday;
 
   @Column(name = "Customer_Email", nullable = false)
-  private String email;
+  private String customerEmail;
 
   @Column(name = "Customer_Country", nullable = false)
-  private String country;
+  private String customerCountry;
 
   @Column(name = "Customer_City", nullable = false)
-  private String city;
+  private String customerCity;
 
   @Column(name = "Customer_Zip", nullable = false)
-  private String zip;
+  private String customerZip;
 
   @Column(name = "Customer_Street", nullable = false)
-  private String street;
+  private String customerStreet;
 
   @Column(name = "Customer_House", nullable = false)
-  private String house;
+  private String customerHouse;
 
   @Column(name = "Customer_Apartment", nullable = false)
-  private String apartment;
+  private String customerApartment;
 
 }

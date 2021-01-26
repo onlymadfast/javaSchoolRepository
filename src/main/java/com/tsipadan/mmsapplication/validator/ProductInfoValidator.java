@@ -17,13 +17,13 @@ public class ProductInfoValidator implements Validator {
 
   @Override
   public boolean supports(Class<?> aClass) {
-    return aClass == ProductInfo.class;
+    return ProductInfo.class.equals(aClass);
   }
 
   @Override
   public void validate(Object target, Errors errors) {
-    ProductInfo productInfo = (ProductInfo) target;
 
+    ProductInfo productInfo = (ProductInfo) target;
     ValidationUtils.rejectIfEmptyOrWhitespace(errors, "code", "NotEmpty.productForm.code");
     ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty.productForm.name");
     ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "NotEmpty.productForm.price");
@@ -32,7 +32,7 @@ public class ProductInfoValidator implements Validator {
 
     String code = productInfo.getCode();
     if (code != null && code.length() > 0) {
-      if (code.matches("\\s+")) {
+      if (code.matches("^[a-zA-Z0-9_.-]*$")) {
         errors.rejectValue("code", "Pattern.productForm.code");
       } else if (productInfo.isNewProduct()) {
         Product product = productDAO.findProduct(code);

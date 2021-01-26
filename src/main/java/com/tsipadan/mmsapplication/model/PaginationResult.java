@@ -25,7 +25,7 @@ public class PaginationResult<E> {
 
   private int maxNavigationPage;
 
-  public PaginationResult(Query query, int page, int maxResult, int maxNavigationPage) {
+  public PaginationResult(Query<E> query, int page, int maxResult, int maxNavigationPage) {
 
     final int pageIndex = Math.max(page - 1, 0);
 
@@ -34,7 +34,7 @@ public class PaginationResult<E> {
 
     ScrollableResults resultScroll = query.scroll(ScrollMode.SCROLL_INSENSITIVE);
 
-    List results = new ArrayList<>();
+    List<E> results = new ArrayList<E>();
 
     boolean hasResult = resultScroll.first();
 
@@ -50,17 +50,24 @@ public class PaginationResult<E> {
       }
       resultScroll.last();
     }
+
     this.totalRecords = resultScroll.getRowNumber() + 1;
     this.currentPage = pageIndex + 1;
     this.list = results;
     this.maxResult = maxResult;
 
-    this.totalPages = (this.totalRecords / this.maxResult) + 1;
+    if (this.totalRecords % this.maxResult == 0){
+      this.totalPages = this.totalRecords/this.maxResult;
+    } else {
+      this.totalPages = (this.totalRecords/this.maxResult)+1;
+    }
+
     this.maxNavigationPage = maxNavigationPage;
 
-    if (maxNavigationPage < totalPages) {
-      this.maxNavigationPage = maxNavigationPage;
+    if (maxNavigationPage<totalPages){
+      this.maxNavigationPage=maxNavigationPage;
     }
+    resultScroll.close();
     this.calcNavigationPages();
   }
 

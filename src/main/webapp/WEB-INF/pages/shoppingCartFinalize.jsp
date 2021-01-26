@@ -1,8 +1,9 @@
-<jsp:useBean id="lastOrderedCart" scope="request" type="com.tsipadan.mmsapplication.model.CartInfo"/>
+<%--<jsp:useBean id="lastOrderedCart" scope="request" type="com.tsipadan.mmsapplication.model.CartInfo"/>--%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +31,7 @@
 </div>
 
 <div class="menu-container">
-    <a href="${pageContext.request.contextPath}/">Home</a>
+    <a href="${pageContext.request.contextPath}/home">Home</a>
     <a href="${pageContext.request.contextPath}/productList">Product List</a>
     <a href="${pageContext.request.contextPath}/shoppingCart">My Cart</a>
 

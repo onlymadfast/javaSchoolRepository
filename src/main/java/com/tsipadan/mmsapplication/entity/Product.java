@@ -34,4 +34,6 @@ public class Product {
   @Column(name = "Size", nullable = false)
   private String size;
 
+  public Product(){}
+
 }

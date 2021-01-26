@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +16,7 @@
     <div class="header-bar">
         <c:if test="${pageContext.request.userPrincipal.name != null}">
             Hello
-            <a href="${pageContext.request.contextPath}/accountInfo">
-                    ${pageContext.request.userPrincipal.name} </a>
+            <a href="${pageContext.request.contextPath}/accountInfo">${pageContext.request.userPrincipal.name} </a>
             &nbsp;|&nbsp;
             <a href="${pageContext.request.contextPath}/logout">Logout</a>
         </c:if>
@@ -28,7 +28,7 @@
 </div>
 
 <div class="menu-container">
-    <a href="${pageContext.request.contextPath}/">Home</a>
+    <a href="${pageContext.request.contextPath}/home">Home</a>
     <a href="${pageContext.request.contextPath}/productList">Product List</a>
     <a href="${pageContext.request.contextPath}/shoppingCart">My Cart</a>
 
@@ -52,8 +52,13 @@
         <th>Order Num</th>
         <th>Order Date</th>
         <th>Customer Name</th>
-        <th>Customer Address</th>
         <th>Customer Email</th>
+        <th>Customer Country</th>
+        <th>Customer City</th>
+        <th>Customer Zip</th>
+        <th>Customer Street</th>
+        <th>Customer House</th>
+        <th>Customer Apartment</th>
         <th>Amount</th>
         <th>View</th>
     </tr>
@@ -61,9 +66,9 @@
         <tr>
             <td>${orderInfo.orderNum}</td>
             <td>
-                <fmt:formatDate value="${orderInfo.orderDate}" pattern="dd-MM-yyyy HH:mm"/>
+                <fmt:formatDate value="${orderInfo.orderDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
             </td>
-            <td>${orderInfo.customerName}</td>
+            <td>${orderInfo.customerFirstName}</td>
             <td>${orderInfo.customerEmail}</td>
             <td>${orderInfo.customerCountry}</td>
             <td>${orderInfo.customerCity}</td>
@@ -91,7 +96,6 @@
                 <span class="nav-item"> ... </span>
             </c:if>
         </c:forEach>
-
     </div>
 </c:if>
 

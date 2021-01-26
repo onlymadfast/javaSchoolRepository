@@ -2,6 +2,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,7 @@
 </div>
 
 <div class="menu-container">
-    <a href="${pageContext.request.contextPath}/">Home</a>
+    <a href="${pageContext.request.contextPath}/home">Home</a>
     <a href="${pageContext.request.contextPath}/productList">Product List</a>
     <a href="${pageContext.request.contextPath}/shoppingCart">My Cart</a>
 
@@ -45,68 +46,57 @@
 <div class="page-title">Enter Customer Information</div>
 
 <form:form method="POST" modelAttribute="customerForm" action="${pageContext.request.contextPath}/shoppingCartCustomer">
-
     <table>
         <tr>
             <td>FirstName *</td>
-            <td><form:input path="firstName"/></td>
-            <td><form:errors path="firstName" class="error-message"/></td>
+            <td><form:input path="customerFirstName"/></td>
+            <td><form:errors path="customerFirstName" class="error-message"/></td>
         </tr>
-
         <tr>
             <td>LastName *</td>
-            <td><form:input path="lastName" /></td>
-            <td><form:errors path="lastName" class="error-message"/></td>
+            <td><form:input path="customerLastName" /></td>
+            <td><form:errors path="customerLastName" class="error-message"/></td>
         </tr>
-
         <tr>
             <td>Birthday *</td>
-            <td><form:input path="birthday"/></td>
-            <td><form:errors path="birthday" class="error-message"/></td>
+            <td><form:input path="customerBirthday"/></td>
+            <td><form:errors path="customerBirthday" class="error-message"/></td>
         </tr>
-
         <tr>
             <td>Email *</td>
-            <td><form:input path="email" /></td>
-            <td><form:errors path="email" class="error-message" /></td>
+            <td><form:input path="customerEmail" /></td>
+            <td><form:errors path="customerEmail" class="error-message" /></td>
         </tr>
-
         <tr>
             <td>Country *</td>
-            <td><form:input path="country" /></td>
-            <td><form:errors path="country" class="error-message" /></td>
+            <td><form:input path="customerCountry" /></td>
+            <td><form:errors path="customerCountry" class="error-message" /></td>
         </tr>
-
         <tr>
             <td>City *</td>
-            <td><form:input path="city" /></td>
-            <td><form:errors path="city" class="error-message" /></td>
+            <td><form:input path="customerCity" /></td>
+            <td><form:errors path="customerCity" class="error-message" /></td>
         </tr>
-
         <tr>
             <td>Zip *</td>
-            <td><form:input path="zip" /></td>
-            <td><form:errors path="zip" class="error-message" /></td>
+            <td><form:input path="customerZip" /></td>
+            <td><form:errors path="customerZip" class="error-message" /></td>
         </tr>
-
         <tr>
             <td>Street *</td>
-            <td><form:input path="street" /></td>
-            <td><form:errors path="street" class="error-message" /></td>
+            <td><form:input path="customerStreet" /></td>
+            <td><form:errors path="customerStreet" class="error-message" /></td>
         </tr>
-
         <tr>
             <td>House *</td>
-            <td><form:input path="house" /></td>
-            <td><form:errors path="apartment" class="error-message" /></td>
+            <td><form:input path="customerHouse" /></td>
+            <td><form:errors path="customerHouse" class="error-message" /></td>
         </tr>
-
         <tr>
             <td>Apartment *</td>
-            <td><form:input path="apartment" /></td>
-            <td><form:errors path="apartment" class="error-message" /></td>
+            <td><form:input path="customerApartment" /></td>
+            <td><form:errors path="customerApartment" class="error-message" /></td>
         </tr>
-
         <tr>
             <td>&nbsp;</td>
             <td>

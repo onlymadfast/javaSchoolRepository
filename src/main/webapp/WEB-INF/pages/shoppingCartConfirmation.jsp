@@ -1,8 +1,8 @@
-<jsp:useBean id="myCart" scope="request" type="com.tsipadan.mmsapplication.model.CustomerInfo"/>
-<jsp:useBean id="myCart2" scope="request" type="com.tsipadan.mmsapplication.model.CartInfo"/>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +30,7 @@
 </div>
 
 <div class="menu-container">
-    <a href="${pageContext.request.contextPath}/">Home</a>
+    <a href="${pageContext.request.contextPath}/home">Home</a>
     <a href="${pageContext.request.contextPath}/productList">Product List</a>
     <a href="${pageContext.request.contextPath}/shoppingCart">My Cart</a>
 
@@ -50,38 +50,36 @@
 <div class="customer-info-container">
     <h3>Customer Information:</h3>
     <ul>
-        <li>FirstName: ${myCart.firstName}</li>
-        <li>LastName: ${myCart.lastName}</li>
-        <li>Birthday: ${myCart.birthday}</li>
-        <li>Email: ${myCart.email}</li>
-        <li>Country: ${myCart.country}</li>
-        <li>City: ${myCart.city}</li>
-        <li>Street: ${myCart.street}</li>
-        <li>House: ${myCart.house}</li>
-        <li>Apartment: ${myCart.apartment}</li>
+        <li>FirstName: ${myCart.customerInfo.customerFirstName}</li>
+        <li>LastName: ${myCart.customerInfo.customerLastName}</li>
+        <li>Birthday: ${myCart.customerInfo.customerBirthday}</li>
+        <li>Email: ${myCart.customerInfo.customerEmail}</li>
+        <li>Country: ${myCart.customerInfo.customerCountry}</li>
+        <li>City: ${myCart.customerInfo.customerCity}</li>
+        <li>Zip: ${myCart.customerInfo.customerZip}</li>
+        <li>Street: ${myCart.customerInfo.customerStreet}</li>
+        <li>House: ${myCart.customerInfo.customerHouse}</li>
+        <li>Apartment: ${myCart.customerInfo.customerApartment}</li>
     </ul>
     <h3>Cart Summary:</h3>
     <ul>
-        <li>Quantity: ${myCart2.quantityTotal}</li>
+        <li>Quantity: ${myCart.quantityTotal}</li>
         <li>Total:
             <span class="total">
-            <fmt:formatNumber value="${myCart2.amountTotal}" type="currency"/>
+            <fmt:formatNumber value="${myCart.amountTotal}" type="currency"/>
             </span>
         </li>
     </ul>
 </div>
 
-<form method="POST" action="${pageContext.request.contextPath}/shoppingCartConfirmation">
-
+<form:form method="POST" action="${pageContext.request.contextPath}/shoppingCartConfirmation">
     <a class="navi-item" href="${pageContext.request.contextPath}/shoppingCart">Edit Cart</a>
-
     <a class="navi-item" href="${pageContext.request.contextPath}/shoppingCartCustomer">Edit Customer Info</a>
-
     <input type="submit" value="Send" class="button-send-sc"/>
-</form>
+</form:form>
 
 <div class="container">
-    <c:forEach items="${myCart2.cartLines}" var="cartLineInfo">
+    <c:forEach items="${myCart.cartLines}" var="cartLineInfo">
         <div class="product-preview-container">
             <ul>
                 <li>
@@ -111,7 +109,6 @@
             </ul>
         </div>
     </c:forEach>
-
 </div>
 
 <div class="footer-container">

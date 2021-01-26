@@ -62,7 +62,6 @@ public class HibernateConfig {
         return transactionManager;
     }
 
-
     @Bean(name = "productDAO")
     public ProductDAO getProductDAO() {
         return new ProductDAOImpl();

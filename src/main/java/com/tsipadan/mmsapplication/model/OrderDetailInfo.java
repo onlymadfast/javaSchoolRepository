@@ -24,5 +24,4 @@ public class OrderDetailInfo {
     this.price = price;
     this.amount = amount;
   }
-
 }

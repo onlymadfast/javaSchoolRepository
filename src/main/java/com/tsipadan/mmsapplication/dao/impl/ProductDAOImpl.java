@@ -7,12 +7,10 @@ import com.tsipadan.mmsapplication.model.ProductInfo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
+
 import java.util.Date;
-import java.util.List;
+
 
 @Repository
 @Transactional
@@ -23,9 +21,12 @@ public class ProductDAOImpl implements ProductDAO {
 
   @Override
   public Product findProduct(String code) {
-    TypedQuery<Product> query = entityManager.createQuery("SELECT code FROM Product", Product.class);
-    List<Product> results = query.getResultList();
-    return (Product) results;
+
+    String sql = " SELECT c from Product c WHERE c.code = :code ";
+    Query query = entityManager.createQuery(sql, Product.class);
+    query.setParameter("code", code);
+    return (Product) query.getSingleResult();
+
   }
 
   @Override
@@ -40,10 +41,9 @@ public class ProductDAOImpl implements ProductDAO {
 
   @Override
   public void save(ProductInfo productInfo) {
+
     String code = productInfo.getCode();
-
     Product product = null;
-
     boolean isNew = false;
     if (code != null) {
       product = this.findProduct(code);
@@ -54,10 +54,10 @@ public class ProductDAOImpl implements ProductDAO {
       product.setCreateDate(new Date());
     }
     product.setCode(code);
-    product.setName(product.getName());
-    product.setPrice(product.getPrice());
-    product.setCategory(product.getCategory());
-    product.setSize(product.getSize());
+    product.setName(productInfo.getName());
+    product.setPrice(productInfo.getPrice());
+    product.setCategory(productInfo.getCategory());
+    product.setSize(productInfo.getSize());
 
     if (productInfo.getFileData() != null) {
       byte[] image = productInfo.getFileData().getBytes();
@@ -66,27 +66,30 @@ public class ProductDAOImpl implements ProductDAO {
       }
     }
     if (isNew) {
-      this.entityManager.persist(product);
+      entityManager.persist(product);
     }
-    this.entityManager.flush();
+    entityManager.flush();
   }
 
   @Override
   public PaginationResult<ProductInfo> queryProducts(int page, int maxResult, int maxNavigationPage, String likeName) {
-    String sql = "select new" + ProductInfo.class.getName()
-        + "productInfo.code, productInfo.name, productInfo.price, productInfo.category, productInfo.size"
-        + "FROM" + Product.class.getName() + "productInfo";
+    String sql = "select new " + ProductInfo.class.getName()
+        + " (p.code, p.name, p.price, p.category, p.size) "
+        + " FROM " + Product.class.getName() + " p ";
 
     if (likeName != null && likeName.length() > 0) {
-      sql += "where lower (productInfo.name) like :likeName";
+      sql += " WHERE LOWER (p.name) like :likeName ";
     }
-    sql += "order by productInfo.createDate desc";
+    sql += "order by p.createDate desc ";
+
+    System.out.println(sql);
 
     Query query = entityManager.createQuery(sql);
+
     if (likeName != null && likeName.length() > 0) {
       query.setParameter("likeName", "%" + likeName.toLowerCase() + "%");
     }
-    return new PaginationResult<ProductInfo>((org.hibernate.query.Query) query,page,maxResult,maxNavigationPage);
+    return new PaginationResult<ProductInfo>((org.hibernate.query.Query<ProductInfo>) query,page,maxResult,maxNavigationPage);
   }
 
   @Override

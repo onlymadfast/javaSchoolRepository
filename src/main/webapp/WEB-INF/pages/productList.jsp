@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +16,7 @@
     <div class="header-bar">
         <c:if test="${pageContext.request.userPrincipal.name != null}">
             Hello
-            <a href="${pageContext.request.contextPath}/accountInfo">
-                    ${pageContext.request.userPrincipal.name} </a>
+            <a href="${pageContext.request.contextPath}/accountInfo">${pageContext.request.userPrincipal.name}</a>
             &nbsp;|&nbsp;
             <a href="${pageContext.request.contextPath}/logout">Logout</a>
         </c:if>
@@ -28,7 +28,7 @@
 </div>
 
 <div class="menu-container">
-    <a href="${pageContext.request.contextPath}/">Home</a>
+    <a href="${pageContext.request.contextPath}/home">Home</a>
     <a href="${pageContext.request.contextPath}/productList">Product List</a>
     <a href="${pageContext.request.contextPath}/shoppingCart">My Cart</a>
 
@@ -51,11 +51,13 @@
             <li><img class="product-image" src="${pageContext.request.contextPath}/productImage?code=${prodInfo.code}" alt="picture"/></li>
             <li>Code: ${prodInfo.code}</li>
             <li>Name: ${prodInfo.name}</li>
-            <li>Name: ${prodInfo.category}</li>
-            <li>Name: ${prodInfo.size}</li>
+            <li>Category: ${prodInfo.category}</li>
+            <li>Size: ${prodInfo.size}</li>
             <li>Price: <fmt:formatNumber value="${prodInfo.price}" type="currency"/></li>
-            <li><a href="${pageContext.request.contextPath}/buyProduct?code=${prodInfo.code}">
-                Buy Now</a></li>
+            <li>
+                <a href="${pageContext.request.contextPath}/buyProduct?code=${prodInfo.code}">Buy Now</a>
+            </li>
+
             <security:authorize access="hasRole('ROLE_ADMINISTRATOR')">
                 <li>
                     <a style="color:red;" href="${pageContext.request.contextPath}/product?code=${prodInfo.code}">Edit Product</a>
@@ -63,7 +65,6 @@
             </security:authorize>
         </ul>
     </div>
-
 </c:forEach>
 <br/>
 <c:if test="${paginationProducts.totalPages > 1}">
