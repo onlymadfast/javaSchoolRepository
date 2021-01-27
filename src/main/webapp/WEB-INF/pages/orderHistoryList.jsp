@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Product List</title>
+    <title>History List</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/style.css">
 </head>
 <body>
@@ -16,8 +16,7 @@
     <div class="header-bar">
         <c:if test="${pageContext.request.userPrincipal.name != null}">
             Hello
-            <a href="${pageContext.request.contextPath}/accountInfo">
-                    ${pageContext.request.userPrincipal.name} </a>
+            <a href="${pageContext.request.contextPath}/accountInfo">${pageContext.request.userPrincipal.name} </a>
             &nbsp;|&nbsp;
             <a href="${pageContext.request.contextPath}/logout">Logout</a>
         </c:if>
@@ -40,58 +39,51 @@
     <security:authorize  access="hasRole('ROLE_ADMINISTRATOR')">
         <a href="${pageContext.request.contextPath}/product">Create Product</a>
     </security:authorize>
+
+    <security:authorize  access="hasRole('ROLE_CUSTOMER')">
+        <a href="${pageContext.request.contextPath}/orderHistoryList">Order History</a>
+    </security:authorize>
 </div>
 
-<fmt:setLocale value="en_US" scope="session"/>
+<div class="page-title">Order Details And History</div>
 
-<div class="page-title">Order Info</div>
+<%--<form method="GET" modelattribute="" action="${pageContext.request.contextPath}/">--%>
+    <h3>Enter you Order Number *
+        <form method="get" action="${pageContext.request.contextPath}/orderHistoryList">
+        <input type="text" name="keyword" />
+        <input type="submit" value="Search" />
+        </form>
+    </h3>
+<%--</form>--%>
+
+<c:forEach items="${paginationResult.list}" var="orderInfo">
+    <div><a href="${pageContext.request.contextPath}/order?orderId=${orderInfo.id}">View</a></div>
+</c:forEach>
 
 <div class="customer-info-container">
-    <h3>Customer Information:</h3>
-    <ul>
-        <li>Name: ${orderInfo.customerFirstName}</li>
-        <li>Email: ${orderInfo.customerEmail}</li>
-        <li>Country: ${orderInfo.customerCountry}</li>
-        <li>City: ${orderInfo.customerCity}</li>
-        <li>Zip: ${orderInfo.customerZip}</li>
-        <li>Street: ${orderInfo.customerStreet}</li>
-        <li>House: ${orderInfo.customerHouse}</li>
-        <li>Apartment: ${orderInfo.customerApartment}</li>
-    </ul>
-    <h3>Order Summary:</h3>
-    <ul>
-        <li>Total:
-            <span class="total">
+    <c:forEach items="${result}" var="orderInfo">
+        <h3>Customer Information:</h3>
+        <ul>
+            <li>Name: ${orderInfo.customerFirstName}</li>
+            <li>Email: ${orderInfo.customerEmail}</li>
+            <li>Country: ${orderInfo.customerCountry}</li>
+            <li>City: ${orderInfo.customerCity}</li>
+            <li>Zip: ${orderInfo.customerZip}</li>
+            <li>Street: ${orderInfo.customerStreet}</li>
+            <li>House: ${orderInfo.customerHouse}</li>
+            <li>Apartment: ${orderInfo.customerApartment}</li>
+        </ul>
+        <h3>Order Summary:</h3>
+        <ul>
+            <li>Total:
+                <span class="total">
            <fmt:formatNumber value="${orderInfo.amount}" type="currency"/>
            </span>
-        </li>
-    </ul>
+            </li>
+        </ul>
+    </c:forEach>
 </div>
 
-<br/>
-
-<table border="1" style="width:100%">
-    <tr>
-        <th>Product Code</th>
-        <th>Product Name</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Amount</th>
-    </tr>
-    <c:forEach items="${orderInfo.details}" var="orderDetailInfo">
-        <tr>
-            <td>${orderDetailInfo.productCode}</td>
-            <td>${orderDetailInfo.productName}</td>
-            <td>${orderDetailInfo.quantity}</td>
-            <td>
-                <fmt:formatNumber value="${orderDetailInfo.price}" type="currency"/>
-            </td>
-            <td>
-                <fmt:formatNumber value="${orderDetailInfo.amount}" type="currency"/>
-            </td>
-        </tr>
-    </c:forEach>
-</table>
 
 <div class="footer-container">
     @HelloWorld
@@ -99,6 +91,5 @@
     <br>
     See more <a>demo</a>
 </div>
-
 </body>
 </html>

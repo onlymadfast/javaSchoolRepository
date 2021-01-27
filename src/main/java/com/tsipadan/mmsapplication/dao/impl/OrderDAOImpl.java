@@ -2,10 +2,13 @@ package com.tsipadan.mmsapplication.dao.impl;
 
 import com.tsipadan.mmsapplication.dao.OrderDAO;
 import com.tsipadan.mmsapplication.dao.ProductDAO;
+import com.tsipadan.mmsapplication.entity.Account;
 import com.tsipadan.mmsapplication.entity.Order;
 import com.tsipadan.mmsapplication.entity.OrderDetail;
 import com.tsipadan.mmsapplication.entity.Product;
 import com.tsipadan.mmsapplication.model.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,31 +20,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@Repository
 @Transactional
+@Repository
 public class OrderDAOImpl implements OrderDAO {
 
   @PersistenceContext
   private EntityManager entityManager;
+
+  @Autowired
   private ProductDAO productDAO;
 
   public OrderDAOImpl() {}
 
-  private int getMaxOrderNum() {
-    String sql = " SELECT MAX(o.orderNum) from " + Order.class.getName() + " o ";
-    Query query = entityManager.createQuery(sql);
-    Integer value = query.getMaxResults();
-    if (value == null) {
-      return 0;
-    }
-    return value;
-  }
-
   @Override
   public void saveOrder(CartInfo cartInfo) {
-
-    int orderNum = this.getMaxOrderNum() + 1;
-
+    int random = (int) (Math.random()*1000);
+    int orderNum = random + 1;
     Order order = new Order();
     order.setId(UUID.randomUUID().toString());
     order.setOrderNum(orderNum);
@@ -59,11 +53,9 @@ public class OrderDAOImpl implements OrderDAO {
     order.setCustomerStreet(customerInfo.getCustomerStreet());
     order.setCustomerHouse(customerInfo.getCustomerHouse());
     order.setCustomerApartment(customerInfo.getCustomerApartment());
-
     entityManager.persist(order);
 
     List<CartLineInfo> lines = cartInfo.getCartLines();
-
     for (CartLineInfo line : lines) {
       OrderDetail detail = new OrderDetail();
       detail.setId(UUID.randomUUID().toString());
@@ -74,7 +66,6 @@ public class OrderDAOImpl implements OrderDAO {
       String code = line.getProductInfo().getCode();
       Product product = productDAO.findProduct(code);
       detail.setProduct(product);
-
       entityManager.persist(detail);
     }
     cartInfo.setOrderNum(orderNum);
@@ -94,13 +85,27 @@ public class OrderDAOImpl implements OrderDAO {
     return new PaginationResult<OrderInfo>((org.hibernate.query.Query) query, page, maxResult, maxNavigationPage);
   }
 
-  public Order findOrder(String orderId) {
+  public Order findSpecificOrder(String orderNum) {
+    String sql = " select n from Order n where n.orderNum = :orderNum ";
+    Query query = entityManager.createQuery(sql);
+    query.setParameter("orderNum", orderNum);
+    return (Order) query.getSingleResult();
+  }
 
+  @Override
+  public OrderInfo getSpecificOrderInfo(String orderNum) {
+    Order order = this.findSpecificOrder(orderNum);
+    return new OrderInfo(order.getId(), order.getOrderNum(), order.getOrderDate(),
+        order.getAmount(), order.getCustomerFirstName(), order.getCustomerEmail(),
+        order.getCustomerCountry(), order.getCustomerCity(), order.getCustomerZip(),
+        order.getCustomerStreet(), order.getCustomerHouse(), order.getCustomerApartment());
+  }
+
+  public Order findOrder(String orderId) {
     String sql = " select i from Order i where i.id = :orderId ";
     Query query = entityManager.createQuery(sql);
     query.setParameter("orderId", orderId);
-    return (Order) query;
-
+    return (Order) query.getSingleResult();
   }
 
   @Override
@@ -124,6 +129,14 @@ public class OrderDAOImpl implements OrderDAO {
     Query query = entityManager.createQuery(sql);
     query.setParameter("orderId", orderId);
 
+    return query.getResultList();
+  }
+
+  @Override
+  public List<Order> search(String keyword) {
+    String sql = " SELECT f from Order f where cast(f.orderNum as CHAR) like :keyword% ";
+    Query query = entityManager.createQuery(sql);
+    query.setParameter("keyword",keyword);
     return query.getResultList();
   }
 

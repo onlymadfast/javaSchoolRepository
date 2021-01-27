@@ -44,24 +44,24 @@
 <div class="page-title">Account Info</div>
 
 <div class="account-container">
-    <ul>
-        <li>
-            User Name: ${pageContext.request.userPrincipal.name}
-        </li>
-        <li>
-            Role: <c:forEach items="${userDetails.authorities}" var="auth">${auth.authority}</c:forEach>
-        </li>
-    </ul>
+    <div class="page-title">User Name: ${pageContext.request.userPrincipal.name}</div>
 
-    <security:authorize access="hasRole('ROLE_CUSTOMER')">
-        <div class="menu-container2">
-            <a href="${pageContext.request.contextPath}/orderHistoryList">View my order details</a>
+    <form action="${pageContext.request.contextPath}/changePassword" method="post" style="max-width: 350px; margin: 0 auto;">
+        <div class="border border-secondary rounded p-3">
+            <div>
+                <p>
+                    <input type="password" name="password" id="password" class="form-control"
+                           placeholder="Enter your new password" />
+                </p>
+                <p>
+                    <input type="password" class="form-control" placeholder="Confirm your new password"/>
+                </p>
+                <p class="text-center">
+                    <input type="submit" value="Change Password" class="btn btn-primary" />
+                </p>
+            </div>
         </div>
-        <div class="menu-container2">
-            <a href="${pageContext.request.contextPath}/changePassword">Want to change password ?</a>
-        </div>
-    </security:authorize>
-
+    </form>
 
 </div>
 

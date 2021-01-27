@@ -74,7 +74,6 @@
             </tr>
         </table>
     </form>
-<%--    <span class="error-message">${error}</span>--%>
 </div>
 
 <div class="footer-container">

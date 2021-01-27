@@ -48,7 +48,13 @@
 
 <div class="container">
     <h3>Thank you for Order</h3>
+
     Your order number is: ${lastOrderedCart.orderNum}
+
+    <h5>Please remember your order number,</h5>
+    <h5>you can use it to view the order status if you register<a href="">View my order status</a></h5>
+    <h5>or have already registered<a href="${pageContext.request.contextPath}/regPage">Create new account</a></h5>
+
 </div>
 
 <div class="footer-container">

@@ -45,7 +45,8 @@
 
 <div class="page-title">Order List</div>
 
-<div>Total Order Count: ${paginationResult.totalRecords}</div>
+<div>Total Order: ${paginationResult.totalRecords}</div>
+<div>Orders on this page: ${paginationResult.maxResult}</div>
 
 <table border="1" style="width:100%">
     <tr>

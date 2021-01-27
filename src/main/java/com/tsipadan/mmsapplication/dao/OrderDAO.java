@@ -1,9 +1,8 @@
 package com.tsipadan.mmsapplication.dao;
 
-import com.tsipadan.mmsapplication.model.CartInfo;
-import com.tsipadan.mmsapplication.model.OrderDetailInfo;
-import com.tsipadan.mmsapplication.model.OrderInfo;
-import com.tsipadan.mmsapplication.model.PaginationResult;
+import com.tsipadan.mmsapplication.entity.Account;
+import com.tsipadan.mmsapplication.entity.Order;
+import com.tsipadan.mmsapplication.model.*;
 
 import java.util.List;
 
@@ -15,6 +14,10 @@ public interface OrderDAO {
 
   OrderInfo getOrderInfo(String orderId);
 
+  OrderInfo getSpecificOrderInfo(String orderNum);
+
   List<OrderDetailInfo>listOrderDetailInfos(String orderId);
+
+  List<Order> search(String keyword);
 
 }

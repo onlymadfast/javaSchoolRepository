@@ -6,11 +6,10 @@ h3 {
     padding: 0;
 }
 body {
-    max-width: 860px;
-    min-width: 360px;
-    margin: 0 auto;
+    /*max-width: 950px;*/
+    /*min-width: 360px;*/
     background: #F8F8F8;
-    padding:0 5px;
+    padding:0 100px;
     text-align:center;
 }
 
@@ -46,6 +45,12 @@ body {
     text-align: right;
     margin: 10px 5px;
 }
+
+.menu-container2 {
+    text-align: left;
+    margin: 10px 5px;
+}
+
 .menu-container a {
     margin: 5px 5px 5px 10px;
     color: #004d99;

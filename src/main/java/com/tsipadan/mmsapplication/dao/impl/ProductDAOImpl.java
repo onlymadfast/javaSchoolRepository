@@ -43,10 +43,12 @@ public class ProductDAOImpl implements ProductDAO {
   public void save(ProductInfo productInfo) {
 
     String code = productInfo.getCode();
+
     Product product = null;
     boolean isNew = false;
+
     if (code != null) {
-      product = this.findProduct(code);
+      product = this.findProduct(productInfo.getCode());
     }
     if (product == null) {
       isNew = true;
@@ -66,9 +68,9 @@ public class ProductDAOImpl implements ProductDAO {
       }
     }
     if (isNew) {
-      entityManager.persist(product);
+      this.entityManager.persist(product);
     }
-    entityManager.flush();
+    this.entityManager.flush();
   }
 
   @Override
@@ -82,19 +84,44 @@ public class ProductDAOImpl implements ProductDAO {
     }
     sql += "order by p.createDate desc ";
 
-    System.out.println(sql);
-
     Query query = entityManager.createQuery(sql);
 
     if (likeName != null && likeName.length() > 0) {
       query.setParameter("likeName", "%" + likeName.toLowerCase() + "%");
     }
-    return new PaginationResult<ProductInfo>((org.hibernate.query.Query<ProductInfo>) query,page,maxResult,maxNavigationPage);
+    return new PaginationResult<ProductInfo>((org.hibernate.query.Query<ProductInfo>) query,
+        page,maxResult,maxNavigationPage);
   }
 
   @Override
   public PaginationResult<ProductInfo> queryProducts(int page, int maxResult, int maxNavigationPage) {
     return queryProducts(page, maxResult, maxNavigationPage, null);
+  }
+
+  @Override
+  public PaginationResult<ProductInfo> filterOne (int page, int maxResult, int maxNavigationPage){
+    String sql = " select new " + ProductInfo.class.getName()
+        + " (p.code, p.name, p.price, p.category, p.size) "
+        + " from " + Product.class.getName() + " p "
+        + " where p.category like 'SuperCategory1' ";
+
+    Query query = entityManager.createQuery(sql);
+
+    return new PaginationResult<ProductInfo>((org.hibernate.query.Query<ProductInfo>) query,
+        page,maxResult,maxNavigationPage);
+  }
+
+  @Override
+  public PaginationResult<ProductInfo> filterTwo (int page, int maxResult, int maxNavigationPage){
+    String sql = " select new " + ProductInfo.class.getName()
+        + " (p.code, p.name, p.price, p.category, p.size) "
+        + " from " + Product.class.getName() + " p "
+        + " where p.category like 'SuperCategory2' ";
+
+    Query query = entityManager.createQuery(sql);
+
+    return new PaginationResult<ProductInfo>((org.hibernate.query.Query<ProductInfo>) query,
+        page,maxResult,maxNavigationPage);
   }
 
 }

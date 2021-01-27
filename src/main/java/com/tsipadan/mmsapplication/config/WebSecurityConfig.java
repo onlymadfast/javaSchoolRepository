@@ -43,9 +43,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     httpSecurity.csrf().disable();
 
     httpSecurity.authorizeRequests()
-        .antMatchers("/accountInfo","/index","/log_in","productList"
+        .antMatchers("/index","/log_in","productList"
             ,"shoppingCart","shoppingCartConfirmation","shoppingCartCustomer","shoppingCartFinalize")
         .permitAll();
+
+    httpSecurity.authorizeRequests()
+        .antMatchers("/orderHistoryList","/changePasswordPage")
+        .access("hasAnyRole('ROLE_CUSTOMER')");
+
+    httpSecurity.authorizeRequests()
+        .antMatchers("/accountInfo")
+        .access("hasAnyRole('ROLE_ADMINISTRATOR','ROLE_CUSTOMER')");
 
     httpSecurity.authorizeRequests()
         .antMatchers("/orderList", "/order", "/product")

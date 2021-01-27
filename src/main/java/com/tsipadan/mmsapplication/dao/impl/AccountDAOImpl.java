@@ -19,7 +19,6 @@ public class AccountDAOImpl implements AccountDAO {
 
   @Override
   public Account findAccount(String userName) {
-
       try{
         String sql = "SELECT u from Account u WHERE u.userName = :userName";
         Query query = entityManager.createQuery(sql,Account.class);
@@ -28,9 +27,16 @@ public class AccountDAOImpl implements AccountDAO {
       } catch (NoResultException e){
         return null;
       }
+  }
 
+  @Override
+  public void saveAccount(Account account) {
+    this.entityManager.persist(account);
+  }
 
-
+  @Override
+  public void mergeAccount(Account account){
+    this.entityManager.merge(account);
   }
 
 }

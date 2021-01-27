@@ -1,7 +1,7 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
-<%@ page isELIgnored = "false" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,11 +33,11 @@
     <a href="${pageContext.request.contextPath}/productList">Product List</a>
     <a href="${pageContext.request.contextPath}/shoppingCart">My Cart</a>
 
-    <security:authorize  access="hasAnyRole('ROLE_ADMINISTRATOR')">
+    <security:authorize access="hasAnyRole('ROLE_ADMINISTRATOR')">
         <a href="${pageContext.request.contextPath}/orderList">Order List</a>
     </security:authorize>
 
-    <security:authorize  access="hasRole('ROLE_ADMINISTRATOR')">
+    <security:authorize access="hasRole('ROLE_ADMINISTRATOR')">
         <a href="${pageContext.request.contextPath}/product">Create Product</a>
     </security:authorize>
 </div>
@@ -53,15 +53,14 @@
         <tr>
             <td>Code *</td>
             <td style="color:red;">
-                <c:if test="${not empty productForm.code}">
-<%--                    <form:hidden path="code"/>--%>
-                    ${productForm.code}
-                </c:if>
-
-                <c:if test="${empty productForm.code}">
-                    <form:input path="code" />
-<%--                    <form:hidden path="newProduct" />--%>
-                </c:if>
+                <c:choose>
+                    <c:when test="${not empty productForm.code}">
+                        ${productForm.code}
+                    </c:when>
+                    <c:when test="${empty productForm.code}">
+                        <form:input path="code"/>
+                    </c:when>
+                </c:choose>
             </td>
             <td><form:errors path="code" class="error-message"/></td>
         </tr>
@@ -74,19 +73,19 @@
 
         <tr>
             <td>Price *</td>
-            <td><form:input path="price" /></td>
+            <td><form:input path="price"/></td>
             <td><form:errors path="price" class="error-message"/></td>
         </tr>
 
         <tr>
             <td>Category *</td>
-            <td><form:input path="category" /></td>
+            <td><form:input path="category"/></td>
             <td><form:errors path="category" class="error-message"/></td>
         </tr>
 
         <tr>
             <td>Size *</td>
-            <td><form:input path="size" /></td>
+            <td><form:input path="size"/></td>
             <td><form:errors path="size" class="error-message"/></td>
         </tr>
 
@@ -94,7 +93,7 @@
             <td>Image</td>
             <td>
                 <img src="${pageContext.request.contextPath}/productImage?code=${productForm.code}" width="100"/></td>
-            <td> </td>
+            <td></td>
         </tr>
         <tr>
             <td>Upload Image</td>

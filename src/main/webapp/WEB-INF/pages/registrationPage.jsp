@@ -1,11 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Account Info</title>
+    <title>Registration page</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/style.css">
 </head>
 <body>
@@ -15,8 +17,7 @@
     <div class="header-bar">
         <c:if test="${pageContext.request.userPrincipal.name != null}">
             Hello
-            <a href="${pageContext.request.contextPath}/accountInfo">
-                    ${pageContext.request.userPrincipal.name} </a>
+            <a href="${pageContext.request.contextPath}/accountInfo">${pageContext.request.userPrincipal.name} </a>
             &nbsp;|&nbsp;
             <a href="${pageContext.request.contextPath}/logout">Logout</a>
         </c:if>
@@ -39,30 +40,48 @@
     <security:authorize  access="hasRole('ROLE_ADMINISTRATOR')">
         <a href="${pageContext.request.contextPath}/product">Create Product</a>
     </security:authorize>
+
+    <security:authorize  access="hasRole('ROLE_CUSTOMER')">
+        <a href="${pageContext.request.contextPath}/orderHistoryList">Order History</a>
+    </security:authorize>
 </div>
 
-<div class="page-title">Account Info</div>
+<div class="page-title">Registration</div>
 
-<div class="account-container">
-    <ul>
-        <li>
-            User Name: ${pageContext.request.userPrincipal.name}
-        </li>
-        <li>
-            Role: <c:forEach items="${userDetails.authorities}" var="auth">${auth.authority}</c:forEach>
-        </li>
-    </ul>
+<div class="login-container">
+    <h3>Create NEW username and password</h3>
+    <br>
+    <form method="POST" modelAttribute="account" action='${pageContext.request.contextPath}/regPage'>
+        <table>
+            <tr>
+                <td>UserName *</td>
+                <td><input name="userName"/></td>
+            </tr>
 
-    <security:authorize access="hasRole('ROLE_CUSTOMER')">
-        <div class="menu-container2">
-            <a href="${pageContext.request.contextPath}/orderHistoryList">View my order details</a>
-        </div>
-        <div class="menu-container2">
-            <a href="${pageContext.request.contextPath}/changePassword">Want to change password ?</a>
-        </div>
-    </security:authorize>
+            <tr>
+                <td>Password *</td>
+                <td><input type="password" name="password"/></td>
+            </tr>
 
+            <tr>
+                <td>Select this *</td>
+                <td><input type="radio" name="active" value="1"/>Some check, for service</td>
+            </tr>
 
+            <tr>
+                <td>Role *</td>
+                <td><input type="radio" name="userRole" value="CUSTOMER"/>Standard Role - Customer</td>
+            </tr>
+
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Login"/>
+                    <input type="reset" value="Reset"/>
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>
 
 <div class="footer-container">
@@ -71,5 +90,6 @@
     <br>
     See more <a>demo</a>
 </div>
+
 </body>
 </html>

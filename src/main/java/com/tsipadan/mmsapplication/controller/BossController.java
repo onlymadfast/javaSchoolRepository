@@ -62,6 +62,13 @@ public class BossController {
 
     PaginationResult<ProductInfo> result = productDAO.queryProducts(page, maxResult, maxNavigationPage, likeName);
     model.addAttribute("paginationProducts", result);
+
+    PaginationResult<ProductInfo> filterOne = productDAO.filterOne(page, maxResult, maxNavigationPage);
+    model.addAttribute("paginationProductFilterOne", filterOne);
+
+    PaginationResult<ProductInfo> filterTwo = productDAO.filterTwo(page, maxResult, maxNavigationPage);
+    model.addAttribute("paginationProductFilterTwo", filterTwo);
+
     return "productList";
   }
 
@@ -153,7 +160,7 @@ public class BossController {
   }
 
   @PostMapping(value = "/shoppingCartConfirmation")
-  @Transactional(propagation = Propagation.SUPPORTS)
+  @Transactional(propagation = Propagation.NEVER)
   public String shoppingCartConfirmationSend(HttpServletRequest request, Model model) {
     CartInfo cartInfo = Utils.getCartInSession(request);
     if (cartInfo.isEmpty()) {
@@ -162,12 +169,11 @@ public class BossController {
       return "redirect:/shoppingCartCustomer";
     }
 
-//    try {
+    try {
       orderDAO.saveOrder(cartInfo);
-//    } catch (Exception e) {
-//      return "shoppingCartConfirmation";
-//    }
-
+    } catch (Exception e) {
+      return "shoppingCartConfirmation";
+    }
 
     Utils.removeCartInSession(request);
     Utils.storeLastOrderedCartInSession(request, cartInfo);

@@ -82,6 +82,7 @@ public class AdminController {
 
   @GetMapping(value = "/product")
   public String showProduct(Model model, @RequestParam(value = "code", defaultValue = "") String code) {
+
     ProductInfo productInfo = null;
     if (code != null && code.length() > 0) {
       productInfo = productDAO.findProductInfo(code);
@@ -113,7 +114,9 @@ public class AdminController {
   }
 
   @GetMapping(value = "/order")
-  public String viewOrder(Model model, @RequestParam("orderId") String orderId) {
+  public String viewOrder(Model model,
+                          @RequestParam(value = "orderId") String orderId) {
+
     OrderInfo orderInfo = null;
     if (orderId != null) {
       orderInfo = this.orderDAO.getOrderInfo(orderId);
