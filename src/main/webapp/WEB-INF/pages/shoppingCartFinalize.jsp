@@ -1,4 +1,3 @@
-<%--<jsp:useBean id="lastOrderedCart" scope="request" type="com.tsipadan.mmsapplication.model.CartInfo"/>--%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -10,6 +9,8 @@
     <meta charset="UTF-8">
     <title>Shopping Cart Finalize</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
 
@@ -48,13 +49,10 @@
 
 <div class="container">
     <h3>Thank you for Order</h3>
-
     Your order number is: ${lastOrderedCart.orderNum}
-
-    <h5>Please remember your order number,</h5>
-    <h5>you can use it to view the order status if you register<a href="">View my order status</a></h5>
-    <h5>or have already registered<a href="${pageContext.request.contextPath}/regPage">Create new account</a></h5>
-
+    <h5>Please remember your order number!</h5>
+    <h5>you can use it to view the order status if you already registered | <a href="${pageContext.request.contextPath}/orderHistoryList">View my order status</a></h5>
+    <h5>or register now and see the order status | <a href="${pageContext.request.contextPath}/regPage">Create new account</a></h5>
 </div>
 
 <div class="footer-container">
@@ -63,6 +61,9 @@
     <br>
     See more <a>demo</a>
 </div>
-
+<script src="https://kit.fontawesome.com/5a393fd603.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
 </body>
 </html>

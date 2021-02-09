@@ -8,7 +8,6 @@
     <meta charset="UTF-8">
     <title>Product List</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/style.css">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
@@ -56,7 +55,7 @@
                 All items
             </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
              data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <c:forEach items="${paginationProducts.list}" var="prodInfo">
@@ -76,8 +75,8 @@
                             <security:authorize access="hasRole('ROLE_ADMINISTRATOR')">
                                 <li>
                                     <a style="color:red;"
-                                       href="${pageContext.request.contextPath}/product?code=${prodInfo.code}">Edit
-                                        Product</a>
+                                       href="${pageContext.request.contextPath}/productEdit?code=${prodInfo.code}">Edit Product
+                                    </a>
                                 </li>
                             </security:authorize>
                         </ul>
@@ -134,19 +133,6 @@
                         </ul>
                     </div>
                 </c:forEach>
-
-                <c:if test="${paginationProducts.totalPages > 1}">
-                    <div class="page-navigator">
-                        <c:forEach items="${paginationProducts.navigationPages}" var="page">
-                            <c:if test="${page != -1 }">
-                                <a href="productList?page=${page}" class="nav-item">${page}</a>
-                            </c:if>
-                            <c:if test="${page == -1 }">
-                                <span class="nav-item"> ... </span>
-                            </c:if>
-                        </c:forEach>
-                    </div>
-                </c:if>
             </div>
         </div>
     </div>
@@ -185,19 +171,6 @@
                         </ul>
                     </div>
                 </c:forEach>
-
-                <c:if test="${paginationProducts.totalPages > 1}">
-                    <div class="page-navigator">
-                        <c:forEach items="${paginationProducts.navigationPages}" var="page">
-                            <c:if test="${page != -1 }">
-                                <a href="productList?page=${page}" class="nav-item">${page}</a>
-                            </c:if>
-                            <c:if test="${page == -1 }">
-                                <span class="nav-item"> ... </span>
-                            </c:if>
-                        </c:forEach>
-                    </div>
-                </c:if>
             </div>
         </div>
     </div>
@@ -212,7 +185,6 @@
     <br>
     See more <a>demo</a>
 </div>
-
 <script src="https://kit.fontawesome.com/5a393fd603.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"

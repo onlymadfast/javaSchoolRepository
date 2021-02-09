@@ -143,3 +143,74 @@ ul {
 table td {
     padding: 5px;
 }
+
+#myInput {
+    background-image: url('/images/like.png'); /* Add a search icon to input */
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 100%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+}
+
+#myTable {
+    border-collapse: collapse; /* Collapse borders */
+    width: 100%; /* Full-width */
+    border: 1px solid #ddd; /* Add a grey border */
+    font-size: 18px; /* Increase font-size */
+}
+
+#myTable th, #myTable td {
+    text-align: left; /* Left-align text */
+    padding: 12px; /* Add padding */
+}
+
+#myTable tr {
+    /* Add a bottom border to all table rows */
+    border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+    /* Add a grey background color to the table header and on hover */
+    background-color: #f1f1f1;
+}
+
+.linkMy {
+    color: cornflowerblue; /* Цвет ссылок */
+    padding: 2px; /* Поля вокруг текста */
+}
+.linkMy:hover {
+    background: black; /* Цвет фона под ссылкой */
+    color: #ffe; /* Цвет ссылки */
+}
+
+.classLink{
+    text-decoration: none;
+    color: black;
+}
+.classLink:hover {
+    text-decoration: underline;
+    color: cornflowerblue;
+}
+
+.div1 {
+    background-color: #CCCCFF;
+    padding-bottom: 50px;
+}
+
+.main-wrapper {
+    height: 30vh;
+}
+
+/*#carouselExampleCaptions .carousel-item{*/
+/*    width: 600px;*/
+/*    height: 900px;*/
+/*}*/
+.fig{
+    color: black;
+}
+.ca{
+    font-size: 15px;
+}

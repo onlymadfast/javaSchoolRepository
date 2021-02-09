@@ -7,6 +7,8 @@
     <meta charset="UTF-8">
     <title>Account Info</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
 
@@ -55,10 +57,10 @@
 
     <security:authorize access="hasRole('ROLE_CUSTOMER')">
         <div class="menu-container2">
-            <a href="${pageContext.request.contextPath}/orderHistoryList">View my order details</a>
+            <a class="classLink" href="${pageContext.request.contextPath}/orderHistoryList">View my order details</a>
         </div>
         <div class="menu-container2">
-            <a href="${pageContext.request.contextPath}/changePassword">Want to change password ?</a>
+            <a class="classLink" href="${pageContext.request.contextPath}/changePassword">Want to change password ?</a>
         </div>
     </security:authorize>
 
@@ -71,5 +73,9 @@
     <br>
     See more <a>demo</a>
 </div>
+<script src="https://kit.fontawesome.com/5a393fd603.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
 </body>
 </html>

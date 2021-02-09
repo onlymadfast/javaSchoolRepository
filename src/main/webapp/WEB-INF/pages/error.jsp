@@ -8,11 +8,6 @@
     <title>Error</title>
 </head>
 <body>
-<h3>Please enter the correct details</h3>
-<table>
-    <tr>
-        <td><a href="registration_page.jsp">Retry</a></td>
-    </tr>
-</table>
+<h3>Access Denied !!!!</h3>
 </body>
 </html>
