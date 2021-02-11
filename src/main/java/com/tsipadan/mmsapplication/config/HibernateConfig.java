@@ -25,7 +25,8 @@ import java.util.Properties;
 @EnableTransactionManagement
 @PropertySource(value = "classpath:properties/db.properties")
 @RequiredArgsConstructor
-@EnableJpaRepositories(basePackages = "com.tsipadan.mmsapplication.repository")
+@EnableJpaRepositories(basePackages = "com.tsipadan.mmsapplication.repository.api")
+
 public class HibernateConfig {
 
   private final Environment environment;

@@ -1,9 +1,8 @@
 package com.tsipadan.mmsapplication.service;
 
 import com.tsipadan.mmsapplication.entity.SizeTable;
-import com.tsipadan.mmsapplication.repository.SizeRepository;
+import com.tsipadan.mmsapplication.repository.api.SizeRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

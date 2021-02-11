@@ -1,4 +1,4 @@
-package com.tsipadan.mmsapplication.repository;
+package com.tsipadan.mmsapplication.repository.api;
 
 import com.tsipadan.mmsapplication.entity.SizeTable;
 import org.springframework.data.jpa.repository.JpaRepository;

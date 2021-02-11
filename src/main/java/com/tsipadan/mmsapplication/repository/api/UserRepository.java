@@ -1,4 +1,4 @@
-package com.tsipadan.mmsapplication.repository;
+package com.tsipadan.mmsapplication.repository.api;
 
 import com.tsipadan.mmsapplication.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

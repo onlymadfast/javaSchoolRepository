@@ -4,11 +4,10 @@ import com.tsipadan.mmsapplication.dto.UserDTO;
 import com.tsipadan.mmsapplication.entity.User;
 import com.tsipadan.mmsapplication.entity.UserRole;
 import com.tsipadan.mmsapplication.exception.ResourceCreationException;
-import com.tsipadan.mmsapplication.repository.UserRepository;
+import com.tsipadan.mmsapplication.repository.api.UserRepository;
 import com.tsipadan.mmsapplication.service.api.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +25,7 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -82,17 +82,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     String encodedPassword = bCryptPasswordEncoder.encode(newPassword);
     userDb.setUserPassword(encodedPassword);
     userRepository.save(userDb);
-  }
-
-  @Override
-  @Transactional(readOnly = true)
-  public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-    final User user = Optional.of(username)
-        .map(userRepository::findByUserName)
-        .orElseThrow(()->new UsernameNotFoundException("no user found"));
-    Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-    user.getUserRoles().forEach(role -> grantedAuthorities.add(new SimpleGrantedAuthority(role.getUserRole())));
-    return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),grantedAuthorities);
   }
 
 }

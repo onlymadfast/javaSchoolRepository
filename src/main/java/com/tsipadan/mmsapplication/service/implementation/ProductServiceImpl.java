@@ -2,11 +2,10 @@ package com.tsipadan.mmsapplication.service.implementation;
 
 import com.tsipadan.mmsapplication.dto.GoodsDTO;
 import com.tsipadan.mmsapplication.entity.Goods;
-import com.tsipadan.mmsapplication.repository.ProductRepository;
+import com.tsipadan.mmsapplication.repository.api.ProductRepository;
 import com.tsipadan.mmsapplication.service.api.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
