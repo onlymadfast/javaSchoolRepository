@@ -1,14 +1,11 @@
 package com.tsipadan.mmsapplication.controller;
 
-import com.tsipadan.mmsapplication.dto.GoodsDTO;
 import com.tsipadan.mmsapplication.entity.Goods;
 import com.tsipadan.mmsapplication.exception.ResourceCreationException;
 import com.tsipadan.mmsapplication.service.CategoryService;
 import com.tsipadan.mmsapplication.service.api.ProductService;
-import com.tsipadan.mmsapplication.service.implementation.ProductServiceImpl;
 import com.tsipadan.mmsapplication.service.SizeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 @Controller
+@RequiredArgsConstructor
 public class AdminController {
 
 //  private final OrderDAO orderDAO;
@@ -60,12 +58,10 @@ public class AdminController {
 //    return "order";
 //  }
 
-  @Autowired
-  private ProductService productService;
-  @Autowired
-  private CategoryService categoryService;
-  @Autowired
-  private SizeService sizeService;
+
+  private final ProductService productService;
+  private final CategoryService categoryService;
+  private final SizeService sizeService;
 
   @InitBinder
   public void myInitBinder(WebDataBinder dataBinder){

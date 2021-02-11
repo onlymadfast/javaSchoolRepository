@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
 //  private final UserService userService;
@@ -45,14 +46,11 @@ public class UserController {
 //    return "orderHistoryList";
 //  }
 
-  @Autowired
-  private UserService userService;
-  @Autowired
-  private ProductService productService;
-  @Autowired
-  private CategoryService categoryService;
-  @Autowired
-  private SizeService sizeService;
+
+  private final UserService userService;
+  private final ProductService productService;
+  private final CategoryService categoryService;
+  private final SizeService sizeService;
 
   @InitBinder
   public void initBinder(WebDataBinder binder) {

@@ -10,10 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class SizeService {
 
-  @Autowired
-  private SizeRepository sizeRepository;
+  private final SizeRepository sizeRepository;
 
   @Transactional
   public List<SizeTable> all(){

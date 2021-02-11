@@ -24,18 +24,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
   private final UserRepository userRepository;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
   private final ModelMapper modelMapper;
-
-  @Autowired
-  public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ModelMapper modelMapper) {
-    this.userRepository = userRepository;
-    this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    this.modelMapper = modelMapper;
-  }
 
   @Override
   public UserDTO findByUserName(String username) {

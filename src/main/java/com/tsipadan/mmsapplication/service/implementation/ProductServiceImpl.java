@@ -13,12 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-  @Autowired
-  private ProductRepository productRepository;
-  @Autowired
-  private ModelMapper modelMapper;
+  private final ProductRepository productRepository;
+  private final ModelMapper modelMapper;
 
   @Override
   public List<GoodsDTO> getAllGoods() {
