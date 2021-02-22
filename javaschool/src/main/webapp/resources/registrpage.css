@@ -1,0 +1,10 @@
+.cont{
+    padding: 83px;
+    background: url(/resources/images/background3.jpg) no-repeat;
+    background-size:cover;
+    margin-left: 0;
+    margin-right: 0;
+}
+.nav-link:hover{
+    background-color: black;
+}
