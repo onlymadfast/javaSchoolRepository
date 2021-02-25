@@ -26,44 +26,45 @@
 <jsp:include page="navbar.jsp"/>
 <div class="container-fluid div1 h-100 d-flex justify-content-start">
     <div class="main-wrapper row col-6">
-        <form:form class="form-horizontal m-3 row" modelAttribute="address"
-                   action="${pageContext.request.contextPath}/editAddress" method="post">
+        <form:form class="form-horizontal m-3 row" modelAttribute="address" action="editAddress" method="post">
             <h3>Edit address information:</h3>
+            <hr>
             <form:hidden path="id"/>
             <div class="form-group">
                 <label for="country" class="col-sm-2 control-label">Country</label>
                 <div class="col-sm-10">
-                    <form:input type="text" class="form-control" id="country" path="userCountry"/>
+                    <form:input type="text" class="form-control" id="country" path="userCountry" required="required"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="city" class="col-sm-2 control-label">City</label>
                 <div class="col-sm-10">
-                    <form:input type="text" class="form-control" id="city" path="userCity"/>
+                    <form:input type="text" class="form-control" id="city" path="userCity" required="required"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="zip" class="col-sm-2 control-label">Zip</label>
                 <div class="col-sm-10">
-                    <form:input type="text" class="form-control" id="zip" path="userZip"/>
+                    <form:input type="text" class="form-control" id="zip" path="userZip" required="required"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="street" class="col-sm-2 control-label">Street</label>
                 <div class="col-sm-10">
-                    <form:input type="text" class="form-control" id="street" path="userStreet"/>
+                    <form:input type="text" class="form-control" id="street" path="userStreet" required="required"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="house" class="col-sm-2 control-label">House</label>
                 <div class="col-sm-10">
-                    <form:input type="text" class="form-control" id="house" path="userHouse"/>
+                    <form:input type="text" class="form-control" id="house" path="userHouse" required="required"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="apartment" class="col-sm-2 control-label">Apartment</label>
                 <div class="col-sm-10">
-                    <form:input type="text" class="form-control" id="apartment" path="userApartment"/>
+                    <form:input type="text" class="form-control" id="apartment" path="userApartment"
+                                required="required"/>
                 </div>
             </div>
             <div class="form-group">

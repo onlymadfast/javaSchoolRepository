@@ -61,23 +61,29 @@
     </table>
 
 </div>
-
-<div class="container-fluid p-1 text-center div1">
-    <div class="container table p-2">
-        <hr>
-        <h6 class="card-title">Total items: ${totalItems} --- Page ${currentPage} of ${totalPages}</h6>
-        <c:forEach begin="1" end="${totalPages}" var="num">
-            <c:choose>
-                <c:when test="${num !=currentPage}">
-                    <a class="page-item btn btn-outline-info btn-sm" href="/orderList/${num}">${num}</a>
-                </c:when>
-                <c:otherwise>
-                    <button class="page-item btn btn-outline-dark btn-sm ">${num}</button>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-    </div>
+<hr>
+<div class="container-fluid div1">
+    <h2 class="text-center"><a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/changeStatus">Change Order Status</a></h2>
 </div>
+<hr>
+<c:if test="${not empty totalPages}">
+    <div class="container-fluid p-1 text-center div1">
+        <div class="container table p-2">
+            <hr>
+            <h6 class="card-title">Total items: ${totalItems} --- Page ${currentPage} of ${totalPages}</h6>
+            <c:forEach begin="1" end="${totalPages}" var="num">
+                <c:choose>
+                    <c:when test="${num !=currentPage}">
+                        <a class="page-item btn btn-outline-info btn-sm" href="/orderList/${num}">${num}</a>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="page-item btn btn-outline-dark btn-sm ">${num}</button>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </div>
+    </div>
+</c:if>
 
 <jsp:include page="footer.jsp"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"

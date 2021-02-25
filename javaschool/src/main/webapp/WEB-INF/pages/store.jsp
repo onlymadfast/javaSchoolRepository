@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page isELIgnored="false" %>
 <!doctype html>
 <html lang="en">
@@ -31,6 +32,12 @@
             <a class="page-item btn btn-dark" href="${pageContext.request.contextPath}/showResult/${cat.itemCategory}">${cat.itemCategory}</a>
         </c:forEach>
         <hr>
+        <form:form action="">
+            Filter:
+            <input class="btn btn-outline-primary" type="text" name="keyword" required/>&nbsp;
+            <input class="btn btn-outline-primary" type="submit" value="Search"/>&nbsp;
+            <input class="btn btn-outline-primary" type="button" value="Clear"/>
+        </form:form>
     </div>
 </div>
 
@@ -49,15 +56,18 @@
                 <c:choose>
                     <c:when test="${pageContext.request.userPrincipal.name != null}">
                         <a href="${pageContext.request.contextPath}/buyProduct?id=${product.id}"
-                           class="card-link">Buy It</a>
+                           class="btn btn-outline-primary">Buy It</a>&nbsp;
                     </c:when>
                     <c:otherwise>
-                        <a href="${pageContext.request.contextPath}/login" class="card-link">Login</a> or
-                        <a href="${pageContext.request.contextPath}/reg" class="card-link">Registration first</a>
+                        <a href="${pageContext.request.contextPath}/login" class="btn btn-outline-primary">Login</a>
+                        &nbsp;
+                        <a href="${pageContext.request.contextPath}/reg" class="btn btn-outline-primary">Registration</a>
                     </c:otherwise>
                 </c:choose>
                 <security:authorize access="hasRole('ROLE_ADMIN')">
-                    <a href="${pageContext.request.contextPath}/updateProduct?id=${product.id}" class="card-link">Edit product</a>
+                    <a href="${pageContext.request.contextPath}/updateProduct?id=${product.id}" class="btn btn-outline-dark">Edit</a>
+                    &nbsp;
+                    <a href="${pageContext.request.contextPath}/deleteProduct?id=${product.id}" class="btn btn-outline-dark">Delete</a>
                 </security:authorize>
             </div>
         </div>
@@ -70,10 +80,10 @@
         <c:forEach begin="1" end="${totalPages}" var="num">
             <c:choose>
                 <c:when test="${num !=currentPage}">
-                    <a class="page-item btn btn-outline-info btn-sm" href="/store/${num}">${num}</a>
+                    <a class="page-item btn btn-outline-dark btn-sm" href="/store/${num}">${num}</a>
                 </c:when>
                 <c:otherwise>
-                    <button class="page-item btn btn-outline-dark btn-sm ">${num}</button>
+                    <button class="page-item btn btn-primary btn-sm">${num}</button>
                 </c:otherwise>
             </c:choose>
         </c:forEach>

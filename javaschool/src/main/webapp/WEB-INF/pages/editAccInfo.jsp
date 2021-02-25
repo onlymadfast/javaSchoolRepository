@@ -26,32 +26,36 @@
 <jsp:include page="navbar.jsp"/>
 <div class="container-fluid div1 h-100 d-flex justify-content-start">
     <div class="main-wrapper row col-6">
-        <form:form class="form-horizontal m-3 row" modelAttribute="user"
-                   action="${pageContext.request.contextPath}/editAccInfo" method="post">
+        <form:form class="form-horizontal m-3 row" modelAttribute="user" action="editAccInfo" method="post">
             <h3>Edit account information:</h3>
+            <hr>
             <form:hidden path="id"/>
             <div class="form-group">
                 <label for="firstName" class="col-sm-2 control-label">First name</label>
                 <div class="col-sm-10">
-                    <form:input type="text" class="form-control" id="firstName" path="userFirstName" />
+                    <form:input type="text" class="form-control" id="firstName" path="userFirstName"
+                                required="required"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="lastName" class="col-sm-2 control-label">Last name</label>
                 <div class="col-sm-10">
-                    <form:input type="text" class="form-control" id="lastName" path="userLastName" />
+                    <form:input type="text" class="form-control" id="lastName" path="userLastName"
+                                required="required"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="birthday" class="col-sm-2 control-label">Birthday</label>
                 <div class="col-sm-10">
-                    <form:input type="date" class="form-control" id="birthday" path="userBirthday" />
+                    <form:input type="date" class="form-control" id="birthday" path="userBirthday"
+                                pattern="yyyy/MM/dd" min="1950-12-25" max="2015-12-25" required="required"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="email" class="col-sm-2 control-label">Email</label>
                 <div class="col-sm-10">
-                    <form:input type="email" class="form-control" id="email" path="userEmail" />
+                    <form:input type="email" class="form-control" id="email" path="userEmail"
+                                required="required"/>
                 </div>
             </div>
             <div class="form-group">

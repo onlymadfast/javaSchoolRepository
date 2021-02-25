@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 @Data
@@ -11,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class UserAddressDTO {
 
-  private long id;
+  private Long id;
   @NotBlank
   private String userCountry;
   @NotBlank
@@ -20,16 +21,15 @@ public class UserAddressDTO {
   private String userZip;
   @NotBlank
   private String userStreet;
-  @NotBlank
-  private int userHouse;
-  @NotBlank
-  private int userApartment;
+
+  private Integer userHouse;
+
+  private Integer userApartment;
 
   private boolean valid;
 
-  private UserOrderDTO userOrderDTO;
+//  private UserOrderDTO userOrderDTO;
 
-  private UserDTO userDTO;
-
+//  private UserDTO userDTO;
 
 }

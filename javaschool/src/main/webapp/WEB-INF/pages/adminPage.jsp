@@ -42,7 +42,7 @@
                 <tbody>
                 <tr>
                     <th scope="row"></th>
-                    <td><a href="#" class="btn btn-primary">Order List</a></td>
+                    <td><a href="${pageContext.request.contextPath}/orderList" class="btn btn-primary">Order List</a></td>
                     <td><a href="#" class="btn btn-primary">Top items</a></td>
                     <td><a href="${pageContext.request.contextPath}/createProduct" class="btn btn-primary">Add item</a></td>
                     <td><a href="${pageContext.request.contextPath}/itemCategory" class="btn btn-primary">C/U/D - Categories</a></td>

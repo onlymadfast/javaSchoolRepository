@@ -32,10 +32,16 @@
                 <table class="table table-striped">
                     <tr>
                         <td>Name: </td>
-                        <td><form:input path="itemCategory" /></td>
+                        <td><form:input path="itemCategory" placeholder="Enter category" required="required"/>
+                            &nbsp;<form:errors path="itemCategory" cssClass="invalid-feedback"/>
+                        </td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="Create"></td>
+                        <td>
+                            <input class="btn btn-dark" type="submit" value="Create">
+                            &nbsp;
+                            <a class="btn btn-dark" href="${pageContext.request.contextPath}/itemCategory">Back</a>
+                        </td>
                     </tr>
                 </table>
             </form:form>

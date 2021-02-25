@@ -28,16 +28,18 @@
 <div class="container-fluid div1 h-100 d-flex justify-content-start">
     <div class="main-wrapper row col-6">
 
-        <form class="form-horizontal m-3 row" action="${pageContext.request.contextPath}/changePassword" method="post" id="form">
+        <form class="form-horizontal m-3 row" action="changePassword" method="post" id="form">
             <h4>Changing Password:</h4>
+            <hr>
             <div class="form-group">
                 <label for="userPassword" class="col-sm-2 control-label">Password</label>
                 <div class="col-sm-10">
-                    <input type="password" placeholder="Enter your new password" class="form-control" id="userPassword" name="userPassword">
+                    <input type="password" placeholder="Enter your new password"
+                           class="form-control" id="userPassword" name="userPassword" required>
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" value="Submit" class="btn btn-primary">Change</button>
+                <button type="submit" class="btn btn-primary">Change</button>
             </div>
         </form>
 

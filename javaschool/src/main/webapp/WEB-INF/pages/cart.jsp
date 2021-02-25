@@ -28,58 +28,53 @@
 
 <c:if test="${empty cartForm or empty cartForm.goodsDTOList}">
     <div class="container-fluid p-2 div1">
-        <div class="card text-center">
+        <div class="card text-center p-3">
             <h4 class="card-title">Items in my cart: </h4>
             <div class="card-body">
-                Opps, there is no items...
-                <br><br>
+                <p>NO ITEMS</p>
                 <a href="${pageContext.request.contextPath}/store"
-                   class="card-link">Show product list</a>
+                   class="btn btn-outline-primary">Show product list</a>
             </div>
         </div>
     </div>
 </c:if>
 
 <c:if test="${not empty cartForm and not empty cartForm.goodsDTOList}">
-    <form:form method="post" modelAttribute="cartForm" action="${pageContext.request.contextPath}/shoppingCart">
+    <form:form action="shoppingCart" method="post" modelAttribute="cartForm">
         <div class="container-fluid p-2 div1">
-            <c:forEach items="${cartForm.goodsDTOList}" var="cartLineInfo" varStatus="varStatus">
+            <c:forEach items="${cartForm.goodsDTOList}" var="goodsDTO" varStatus="varStatus">
                 <div class="card rounded-3" style="width: 18rem">
-                    <img src="${cartLineInfo.image}"
+                    <img src="${goodsDTO.image}"
                          class="card-img-top rounded-pill" alt="picture" style="height: 23rem;">
                     <div class="card-body">
-                        <h5 class="card-title text-center">Name: ${cartLineInfo.itemName} || ID: ${cartLineInfo.id}</h5>
+                        <h5 class="card-title text-center">Name: ${goodsDTO.itemName}</h5>
                     </div>
                     <ul class="list-group list-group-flush text-center">
-                        <li class="list-group-item">Price: ${cartLineInfo.itemPrice}$</li>
-                        <li class="list-group-item">Category: ${cartLineInfo.category.itemCategory}</li>
-                        <li class="list-group-item">Size: ${cartLineInfo.itemSize.name()}</li>
+                        <li class="list-group-item">Price: ${goodsDTO.itemPrice}$</li>
+                        <li class="list-group-item">Category: ${goodsDTO.category.itemCategory}</li>
+                        <li class="list-group-item">Size: ${goodsDTO.itemSize.name()}</li>
                         <li class="list-group-item">Quantity:
-<%--                            <form:input path="" />--%>
+                            <input name="goodsDTOList[${varStatus.index}].itemQuantity" />
                         </li>
 
-
-<%--                        TODO: отключючить quantity на время    --%>
-
-
                         <li class="list-group-item">
-                            <span class="card-subtitle"> ${cartLineInfo.amount}$</span>
+                            <c:set value="${goodsDTO.itemPrice * goodsDTO.itemQuantity}" var="amount"/>
+                            <span class="card-subtitle"> ${amount}$</span>
                         </li>
                     </ul>
                     <div class="card-body text-center">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/shoppingCartRemoveProduct?id=${cartLineInfo.id}">Delete</a>
+                        <a class="btn btn-outline-primary"
+                           href="${pageContext.request.contextPath}/shoppingCartRemoveProduct?id=${goodsDTO.id}">Delete</a>
                     </div>
                 </div>
             </c:forEach>
-
-            <div class="container p-2 col-6 text-center div1">
-                <div class="card-body">
-                    <input class="btn btn-outline-primary" type="submit" value="Update Quantity"/>
-                    <a class="nav-link" href="${pageContext.request.contextPath}/shoppingCartCustomer">Next step</a>
-                    <a class="nav-link" href="${pageContext.request.contextPath}/store">Store/Continue Buy</a>
-                </div>
+        </div>
+        <div class="container-fluid p-2 text-center div1">
+            <div class="card-body">
+                <input class="btn btn-outline-primary" type="submit" value="Update Quantity"/>
+                <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/shoppingCartCustomer">Next step</a>
+                <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/store">Store/Continue Buy</a>
             </div>
-
         </div>
     </form:form>
 </c:if>

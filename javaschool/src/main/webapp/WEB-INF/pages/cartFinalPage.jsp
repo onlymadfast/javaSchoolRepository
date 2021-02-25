@@ -25,13 +25,14 @@
 <body>
 <jsp:include page="navbar.jsp"/>
 <div class="container-fluid p-3 div1">
-    <div class="card p-2 col-6 offset-3">
+    <div class="card p-2 col-6">
         <div class="card-body text-center">
             <h4 class="card-title">Thank you for Order</h4>
-            <h5 class="card-title">Your order number is: 123</h5>
+            <h5 class="card-title">Your order number is: ${lastOrderedCart.orderNum}</h5>
             <div class="card-body">
-                <p>You can use it to view the order status if you already registered | <a
-                        href="${pageContext.request.contextPath}/orderInfo">View my order information</a>
+                <p>You can use it to view the order status if you already registered |
+                    <a class="btn btn-outline-primary"
+                       href="${pageContext.request.contextPath}/userHistory">View my order information</a>
                 </p>
             </div>
         </div>

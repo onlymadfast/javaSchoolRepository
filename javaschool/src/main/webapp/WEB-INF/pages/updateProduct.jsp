@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="input" uri="http://www.springframework.org/tags/form" %>
 <%@ page isELIgnored="false" %>
 <%@ page import="com.tsipadan.enumaration.ItemSize" %>
 <c:set var="size" value="<%=ItemSize.values()%>"/>
@@ -26,33 +27,28 @@
 <div class="container-fluid div1 h-100">
     <br>
     <div class="container center">
-        <h4>Update product:</h4>
-        <div class="card" style="width: 25rem;">
+        <div class="card" style="width: 35rem;">
             <div class="card-body">
-                <form:form modelAttribute="updateProduct" method="post" enctype="multipart/form-data">
+                <h4>Update product:</h4>
+                <hr>
+                <form:form action="updateProduct" method="post" modelAttribute="editGoods" enctype="multipart/form-data">
                     <table>
-                        <tr>
-                            <td>ID:</td>
-                            <td>${updateProduct.id}</td>
-                            <td><form:hidden path="id"/></td>
-                        </tr>
+                        <input:hidden path="id"/>
                         <tr>
                             <td>Name:</td>
-                            <td><form:input path="itemName"/></td>
+                            <td><form:input path="itemName" required="required"/></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Category:</td>
                             <td>
-                                ${updateProduct.category.itemCategory}
-                            </td>
-                            <td>
-                                <form:select path="category">
+                                <form:select path="categoryId">
                                     <c:forEach items="${listOfCategory}" var="cat">
                                         <form:option value="${cat.id}">${cat.itemCategory}</form:option>
                                     </c:forEach>
                                 </form:select>
                             </td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>Size:</td>
@@ -67,18 +63,20 @@
                         </tr>
                         <tr>
                             <td>Price:</td>
-                            <td><form:input path="itemPrice" value="${updateProduct.itemPrice}"/></td>
+                            <td><form:input path="itemPrice" value="${editGoods.itemPrice}" pattern="^[0-9]+$"
+                                            required="required"/></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Quantity:</td>
-                            <td><form:input path="itemQuantity" value="${updateProduct.itemQuantity}"/></td>
+                            <td><form:input path="itemQuantity" value="${editGoods.itemQuantity}"
+                                            pattern="^[0-9]+$" required="required"/></td>
                             <td></td>
                         </tr>
                         <tr>
-                            <c:if test="${not empty updateProduct.image}">
+                            <c:if test="${not empty editGoods.image}">
                                 <td>Image:</td>
-                                <td><img src="${updateProduct.image}" alt="picture"/></td>
+                                <td><img src="${editGoods.image}" alt="picture"/></td>
                                 <td></td>
                             </c:if>
                         </tr>
@@ -88,10 +86,10 @@
                             <td></td>
                         </tr>
                     </table>
-                    <br>
-                    <p class="card-text">
-                        When updating the product, remember to update mind</p>
-                    <form:button class="btn btn-primary" type="submit" value="Save">UPDATE</form:button>
+                    <hr>
+                    <p class="card-text">When updating the product, remember to update mind</p>
+                    <hr>
+                    <input class="btn btn-primary" type="submit" value="Update"/>
                 </form:form>
             </div>
         </div>

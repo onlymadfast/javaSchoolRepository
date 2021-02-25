@@ -14,18 +14,6 @@
           crossorigin="anonymous">
 
     <style>
-        .nav-link:hover {
-            background-color: black;
-        }
-
-        .nav.link:hover {
-            background-color: black;
-        }
-
-        .mycolor {
-            background-color: #CCCCFF;
-        }
-
         .main-wrapper {
             height: 80vh;
         }
@@ -51,12 +39,12 @@
             <div class="col-12">
                 <label for="username" class="visually-hidden">Username</label>
                 <input type="text" id="username" class="form-control" name="userName" placeholder="username"
-                       required="" autofocus="">
+                       required>
             </div>
             <div class="col-12">
                 <label for="inputPassword" class="visually-hidden">Password</label>
                 <input type="password" id="inputPassword" class="form-control" name="userPassword"
-                       placeholder="password" required="" data-flagcap="1">
+                       placeholder="password" data-flagcap="1" required>
             </div>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
             <h5>OR</h5>

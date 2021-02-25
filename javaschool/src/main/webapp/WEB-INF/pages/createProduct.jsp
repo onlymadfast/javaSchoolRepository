@@ -26,31 +26,29 @@
 <div class="container-fluid div1 h-100">
     <br>
     <div class="container center">
-        <h4>Create product:</h4>
-        <div class="card" style="width: 25rem;">
+        <div class="card" style="width: 35rem;">
             <div class="card-body">
-                <form:form action="createProduct" method="post" modelAttribute="createProduct" enctype="multipart/form-data">
+                <h4>Create product:</h4>
+                <hr>
+                <form:form action="createProduct" method="post" modelAttribute="goodsCreationDTO"
+                           enctype="multipart/form-data">
                     <table>
                         <tr>
-                            <td>ID:</td>
-                            <td><form:input path="id"/></td>
-                            <td></td>
-                        </tr>
-                        <tr>
                             <td>Name:</td>
-                            <td><form:input path="itemName"/></td>
-                            <td></td>
+                            <td><form:input path="itemName" placeholder="Enter name" required="required"/>
+                                &nbsp;<form:errors path="itemName" cssClass="invalid-feedback"/>
+                            </td>
                         </tr>
                         <tr>
                             <td>Category:</td>
                             <td>
-                                <form:select path="category">
+                                <form:select path="categoryId">
                                     <c:forEach items="${listOfCategory}" var="cat">
                                         <form:option value="${cat.id}">${cat.itemCategory}</form:option>
                                     </c:forEach>
                                 </form:select>
+                                &nbsp;<form:errors path="categoryId" cssClass="invalid-feedback"/>
                             </td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td>Size:</td>
@@ -60,23 +58,28 @@
                                         <form:option value="${sizee.name()}">${sizee.name()}</form:option>
                                     </c:forEach>
                                 </form:select>
+                                &nbsp;<form:errors path="itemSize" cssClass="invalid-feedback"/>
                             </td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td>Price:</td>
-                            <td><form:input path="itemPrice"/></td>
-                            <td></td>
+                            <td><form:input path="itemPrice" placeholder="Enter positive price" pattern="^[0-9]+$"
+                                            required="required"/>
+                                &nbsp;<form:errors path="itemPrice" cssClass="invalid-feedback"/>
+                            </td>
+
                         </tr>
                         <tr>
                             <td>Quantity:</td>
-                            <td><form:input path="itemQuantity"/></td>
-                            <td></td>
+                            <td><form:input path="itemQuantity" placeholder="Enter quantity" pattern="^[0-9]+$"
+                                            required="required"/>
+                                &nbsp;<form:errors path="itemQuantity" cssClass="invalid-feedback"/>
+                            </td>
                         </tr>
                         <tr>
-                            <c:if test="${not empty createProduct.image}">
+                            <c:if test="${not empty goodsCreationDTO.image}">
                             <td>Image:</td>
-                            <td><img src="${createProduct.image}" alt="picture"/></td>
+                            <td><img src="${goodsCreationDTO.image}" alt="picture"/></td>
                             <td></td>
                             </c:if>
                         </tr>
@@ -86,9 +89,10 @@
                             <td></td>
                         </tr>
                     </table>
-                    <br>
-                    <p class="card-text">Create something requires a lot of effort, you don't need to calculate what
-                        will be easy!</p>
+                    <hr>
+                    <p class="card-text">Create something requires a lot of effort,
+                        you don't need to calculate what will be easy!</p>
+                    <hr>
                     <input class="btn btn-primary" type="submit" value="Create"/>
                 </form:form>
             </div>

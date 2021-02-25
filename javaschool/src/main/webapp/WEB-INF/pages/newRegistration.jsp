@@ -27,44 +27,44 @@
 </head>
 <body>
 <jsp:include page="navbar.jsp"/>
-
 <div class="container-fluid div1">
-    <div class="col-lg-12 d-flex justify-content-center ">
-        <div class="col-lg-8 p-2 m-4" style="background: white">
-            <h4>Create your Account: </h4>
-            <form:form action="${pageContext.request.contextPath}/reg" modelattribute="userForm" method="post" >
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">User Name</label>
-                    <input type="text" name="userName" class="form-control" id="exampleInputEmail1"/>
-                    <form:errors path="userName"/>
-                        ${usernameError}
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" name="userPassword" class="form-control" id="exampleInputPassword1"/>
-                </div>
-                <div class="mb-3">
-                    <label for="fname" class="form-label">First Name</label>
-                    <input type="text" name="userFirstName" class="form-control" id="fname" />
-                </div>
-                <div class="mb-3">
-                    <label for="lname" class="form-label">Last Name</label>
-                    <input type="text" name="userLastName" class="form-control" id="lname" />
-                </div>
-                <div class="mb-3">
-                    <label for="b" class="form-label">Birthday</label>
-                    <input type="date" name="userBirthday" pattern="yyyy/MM/dd" class="form-control" id="b" />
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="userEmail" class="form-control" id="email" />
-                </div>
-                <button type="submit" class="btn btn-primary" value="Login">Submit</button>
-            </form:form>
-        </div>
+    <div class="card col-6 p-4 m-4">
+        <h4>Create your Account: </h4>
+        <hr>
+        <form:form action="${pageContext.request.contextPath}/reg" modelattribute="userForm" method="post">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">User Name</label>
+                <input type="text" name="username" class="form-control" id="exampleInputEmail1" required/>
+                <form:errors path="userName"/>
+                    ${usernameError}
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1"
+                       required/>
+            </div>
+            <div class="mb-3">
+                <label for="fname" class="form-label">First Name</label>
+                <input type="text" name="userFirstName" class="form-control" id="fname" required/>
+            </div>
+            <div class="mb-3">
+                <label for="lname" class="form-label">Last Name</label>
+                <input type="text" name="userLastName" class="form-control" id="lname" required/>
+            </div>
+            <div class="mb-3">
+                <label for="b" class="form-label">Birthday</label>
+                <input type="date" name="userBirthday" pattern="yyyy/MM/dd" class="form-control" id="b"
+                       min="1950-12-25" max="2015-12-25"/>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="userEmail" class="form-control" id="email" required/>
+            </div>
+            <hr>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form:form>
     </div>
 </div>
-
 <jsp:include page="footer.jsp"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"

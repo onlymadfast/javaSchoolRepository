@@ -42,12 +42,12 @@
                     <th scope="row"></th>
                     <td>${cat.itemCategory}</td>
                     <td>
-                        <a class="btn btn-primary"
+                        <a class="btn btn-outline-dark"
                            href="${pageContext.request.contextPath}/edit?name=${cat.itemCategory}">Edit
                             category</a>
                             &nbsp;
-                        <a class="btn btn-primary"
-                           href="${pageContext.request.contextPath}/delete?name=${cat.id}">Delete
+                        <a class="btn btn-outline-dark"
+                           href="${pageContext.request.contextPath}/deleteCategory?name=${cat.id}">Delete
                             category</a>
                     </td>
                     </c:forEach>
@@ -55,7 +55,7 @@
                 </tbody>
             </table>
         </div>
-        <a class="btn btn-primary" href="${pageContext.request.contextPath}/newItemCategory">Create category</a>
+        <a class="btn btn-dark" href="${pageContext.request.contextPath}/newItemCategory">Create category</a>
     </div>
 </div>
 <jsp:include page="footer.jsp"/>

@@ -26,7 +26,7 @@
 <body>
 <jsp:include page="navbar.jsp"/>
 <div class="container-fluid p-3 div1">
-    <div class="card p-2 col-6 offset-3">
+    <div class="card p-2 col-6">
         <div class="card-body">
             <h4 class="card-title">Additional Information: </h4>
             <table class="table">
@@ -53,53 +53,41 @@
             <h4 class="card-title">Cart Summary: </h4>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Quantity: ${myCart.quantityTotal}</li>
-                <li class="list-group-item">
-                    Total:
-                    <fmt:formatNumber value="${myCart.amountTotal}" type="currency"/>
-                </li>
+                <li class="list-group-item">Total: ${myCart.amountTotal}$</li>
             </ul>
+
         </div>
     </div>
 </div>
 
-<form:form method="post" action="${pageContext.request.contextPath}/shoppingCartConfirmation">
+<form:form method="post" action="shoppingCartConfirmation">
     <div class="container-fluid p-3 div1">
-        <div class="card p-2 col-4 offset-4">
-
-            <br>
-
+        <div class="card p-2 col-6">
+            <hr>
             <h5 class="card-title">How Pay: </h5>
             <div class="form-check">
-                <input class="form-check-input" type="radio" value="CASH" id="cash">
-                <label class="form-check-label" for="cash">
-                    Сash courier
-                </label>
+                <input class="form-check-input" type="radio" name="howPay" value="CASH" id="cash">
+                <label class="form-check-label" for="cash">Cash</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" value="CARD" id="card" checked>
-                <label class="form-check-label" for="card">
-                    Card
-                </label>
+                <input class="form-check-input" type="radio" name="howPay" value="CARD" id="card" checked>
+                <label class="form-check-label" for="card">Card</label>
             </div>
 
             <h5 class="card-title">How Deliver: </h5>
             <div class="form-check">
-                <input class="form-check-input" type="radio" value="HOME" id="home" checked>
-                <label class="form-check-label" for="home">
-                    Home
-                </label>
+                <input class="form-check-input" type="radio" name="howDeliver" value="HOME" id="home" checked>
+                <label class="form-check-label" for="home">Home</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" value="" id="point" disabled>
-                <label class="form-check-label" for="point">
-                    Point of Delivery
-                </label>
+                <label class="form-check-label" for="point">Point of Delivery</label>
             </div>
-
-            <br>
-
-            <a class="nav-link" href="${pageContext.request.contextPath}/shoppingCart">Edit Cart</a>
-            <a class="nav-link" href="${pageContext.request.contextPath}/shoppingCartCustomer">Edit Information</a>
+            <hr>
+            <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/shoppingCart">Edit Cart</a>
+            <hr>
+            <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/shoppingCartCustomer">Edit Information</a>
+            <hr>
             <input type="submit" class="btn btn-primary" value="Confirm and send"/>
         </div>
     </div>
@@ -107,19 +95,20 @@
 
 <div class="container-fluid p-3 div1">
     <c:forEach items="${myCart.goodsDTOList}" var="cartLineInfo">
-        <div class="card rounded-3 p-2" style="width: 18rem">
+        <div class="card rounded-3 p-2" style="height: 20rem">
             <img src="${cartLineInfo.image}" class="card-img-top rounded-pill" alt="picture" style="height: 23rem;">
             <div class="card-body">
-                <h5 class="card-title text-center">Name: ${cartLineInfo.itemName} || ID: ${cartLineInfo.id}</h5>
+                <h5 class="card-title text-center">Name: ${cartLineInfo.itemName}</h5>
             </div>
             <ul class="list-group list-group-flush text-center">
                 <li class="list-group-item">Price: <fmt:formatNumber value="${cartLineInfo.itemPrice}" type="currency"/></li>
-                <li class="list-group-item">Category: ${cartLineInfo.Category.itemCategory}</li>
+                <li class="list-group-item">Category: ${cartLineInfo.category.itemCategory}</li>
                 <li class="list-group-item">Size: ${cartLineInfo.itemSize.name()}</li>
                 <li class="list-group-item">Quantity: ${cartLineInfo.itemQuantity}</li>
                 <li class="list-group-item">
                     <span class="card-subtitle">
-                        Subtotal: <fmt:formatNumber value="${cartLineInfo.amount}" type="currency"/>
+                        <c:set value="${cartLineInfo.itemPrice * cartLineInfo.itemQuantity}" var="amount"/>
+                        Subtotal: ${amount}$
                     </span>
                 </li>
             </ul>

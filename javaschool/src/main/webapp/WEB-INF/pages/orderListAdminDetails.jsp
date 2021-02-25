@@ -57,12 +57,12 @@
         <tbody>
         <tr>
             <c:forEach items="${orderInfo.goodsDTOList}" var="info">
-                <th scope="row">1</th>
+                <th scope="row"></th>
                 <td>${info.id}</td>
                 <td>${info.itemName}</td>
                 <td>${info.itemQuantity}&nbsp;${info.itemSize}</td>
                 <td>${info.category.itemCategory}</td>
-                <td>Amount</td>
+                <td>Amount - FIXME</td>
             </c:forEach>
         </tr>
         </tbody>

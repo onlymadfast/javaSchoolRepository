@@ -1,43 +1,54 @@
 package com.tsipadan.dto;
 
 import com.tsipadan.enumaration.ItemSize;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @AllArgsConstructor
+@NoArgsConstructor
 public class GoodsDTO {
 
-  private long id;
+  @Min(1)
+  @Max(10000)
+  private Long id;
 
-  @NotBlank(message = "Enter itemName")
+  @NotNull
   private String itemName;
 
-  @NotNull(message = "price must be >0")
-  private int itemPrice;
+  @NotNull
+  @Min(1)
+  private Integer itemPrice;
 
-  @NotNull(message = "quantity must be >0")
-  @Min(value = 1)
-  private int itemQuantity;
+  @NotNull
+  @Min(1)
+  private Integer itemQuantity;
 
   private MultipartFile image;
 
+  @NotNull
   private ItemCategoryDTO category;
 
+  @NotNull
   private ItemSize itemSize;
 
-
-  public GoodsDTO(){
-    this.itemQuantity=0;
+  @Override
+  public String toString() {
+    return "{" +
+        "id=" + id +
+        ", itemName='" + itemName + '\'' +
+        ", itemPrice=" + itemPrice +
+        ", itemQuantity=" + itemQuantity +
+        ", image=" + image +
+        ", category=" + category +
+        ", itemSize=" + itemSize +
+        '}';
   }
-
-  public double getAmount() {
-    return this.getItemPrice() * this.itemQuantity;
-  }
-
 }

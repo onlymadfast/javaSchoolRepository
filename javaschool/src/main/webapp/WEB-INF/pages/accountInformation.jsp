@@ -38,7 +38,7 @@
         <div class="card-body">
             <h5 class="mt-0">View order history / current order status</h5>
             <p>Here you can safely shop and track the status of the item in your personal account</p>
-            <a href="#" class="card-link">View order status information</a>
+            <a href="${pageContext.request.contextPath}/userHistory" class="card-link">View order status information</a>
         </div>
     </div>
     <br>

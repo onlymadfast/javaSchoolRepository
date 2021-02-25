@@ -63,6 +63,8 @@
     <h:form>
         <f:websocket channel="push">
             <f:ajax event="updateOrders" render=":orderTable"/>
+            <f:ajax event="updateUsers" render=":orderTable"/>
+            <f:ajax event="updateGoods" render=":orderTable"/>
         </f:websocket>
     </h:form>
 </h:body>

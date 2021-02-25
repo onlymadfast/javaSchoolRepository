@@ -12,7 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class UserDTO {
 
-  private long id;
+  private Long id;
 
   private String username;
   private String password;
@@ -21,9 +21,5 @@ public class UserDTO {
   private String userLastName;
   private Date userBirthday;
   private String userEmail;
-
-  private UserAddressDTO userAddressDto;
-  private Set<UserRoleDTO> userRoleDto;
-
 
 }

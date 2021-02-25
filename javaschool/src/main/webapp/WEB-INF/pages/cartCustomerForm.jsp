@@ -28,57 +28,43 @@
 <jsp:include page="navbar.jsp"/>
 <div class="container-fluid p-3 div1">
     <div class="card p-2 col-6">
-        <h4 class="card-title">Enter your information: </h4>
         <div class="card-body">
-            
-<%--               <p>--%>
-<%--                   userAddress: ${pageContext.request.userPrincipal.name} have address <br>--%>
-
-<%--                   + ${userAddress.userCountry}--%>
-<%--                   + ${userAddress.userCity}--%>
-<%--                   + ${userAddress.userZip}--%>
-<%--                   + ${userAddress.userStreet}--%>
-<%--                   + ${userAddress.userHouse}--%>
-<%--                   + ${userAddress.userApartment}--%>
-<%--                   <br>--%>
-<%--               </p>--%>
-
-
-            <form:form method="post" modelAttribute="customerForm" action="${pageContext.request.contextPath}/shoppingCartCustomer">
+            <h4 class="card-title">Enter your information: </h4>
+            <hr>
+            <form:form action="shoppingCartCustomer" method="post" modelAttribute="customerForm">
                 <table class="table">
                     <tr>
-                        <td>Country: </td>
-                        <td><input name="userCountry" value="${userAddress.userCountry}"/></td>
-<%--                        <td><form:input path="userCountry"/></td>--%>
+                        <td>Country:</td>
+                        <td><input name="userCountry" value="${userAddress.userCountry}" required/></td>
+                            <%--                        <td><form:input path="userCountry"/></td>--%>
                     </tr>
                     <tr>
-                        <td>City: </td>
-                        <td><input name="userCity" value="${userAddress.userCity}"/></td>
-<%--                        <td><form:input path="userCity"/></td>--%>
+                        <td>City:</td>
+                        <td><input name="userCity" value="${userAddress.userCity}" required/></td>
+                            <%--                        <td><form:input path="userCity"/></td>--%>
                     </tr>
                     <tr>
-                        <td>ZIP: </td>
-                        <td><input name="userZip" value="${userAddress.userZip}"/></td>
-<%--                        <td><form:input path="userZip"/></td>--%>
+                        <td>ZIP:</td>
+                        <td><input name="userZip" value="${userAddress.userZip}" required/></td>
+                            <%--                        <td><form:input path="userZip"/></td>--%>
                     </tr>
                     <tr>
-                        <td>Street: </td>
-                        <td><input name="userStreet" value="${userAddress.userStreet}"/></td>
-<%--                        <td><form:input path="userStreet"/></td>--%>
+                        <td>Street:</td>
+                        <td><input name="userStreet" value="${userAddress.userStreet}" required/></td>
+                            <%--                        <td><form:input path="userStreet"/></td>--%>
                     </tr>
                     <tr>
-                        <td>House: </td>
-                        <td><input name="userHouse" value="${userAddress.userHouse}"/></td>
-<%--                        <td><form:input path="userHouse"/></td>--%>
+                        <td>House:</td>
+                        <td><input name="userHouse" value="${userAddress.userHouse}" required/></td>
+<%--                                                    <td><form:input path="userHouse" required="requied"/></td>--%>
                     </tr>
                     <tr>
-                        <td>Apartment: </td>
-                        <td><input name="userApartment" value="${userAddress.userApartment}"/></td>
-<%--                        <td><form:input path="userApartment"/></td>--%>
+                        <td>Apartment:</td>
+                        <td><input name="userApartment" value="${userAddress.userApartment}" required/></td>
+                            <%--                        <td><form:input path="userApartment"/></td>--%>
                     </tr>
                 </table>
-                <input type="submit" class="btn btn-primary" value="Submit" />
-                <input type="reset" class="btn btn-primary" value="Reset" />
+                <input type="submit" class="btn btn-primary" value="Submit"/>
             </form:form>
         </div>
     </div>

@@ -118,7 +118,9 @@
                 <security:authorize access="hasRole('ROLE_CUSTOMER')">
                 <a href="${pageContext.request.contextPath}/accInfo" class="btn btn-dark">Check the personal account</a>
                 </security:authorize>
-                <a href="${pageContext.request.contextPath}/login" class="btn btn-dark">Login</a>
+                <c:if test="${pageContext.request.userPrincipal.name == null}">
+                    <a href="${pageContext.request.contextPath}/login" class="btn btn-dark">Login</a>
+                </c:if>
             </div>
         </div>
     </div>

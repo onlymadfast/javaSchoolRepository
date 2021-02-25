@@ -33,7 +33,7 @@
                     <tr>
                         <td>Name: </td>
                         <td>was - ${itemCategory.itemCategory}</td>
-                        <td><form:input path="itemCategory"/></td>
+                        <td><form:input path="itemCategory" required="required"/></td>
                     </tr>
                     <tr>
                         <td>
