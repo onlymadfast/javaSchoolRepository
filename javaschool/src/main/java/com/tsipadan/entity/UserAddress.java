@@ -36,7 +36,4 @@ public class UserAddress {
   @JoinColumn(name = "userInfo", foreignKey = @ForeignKey(name = "useraddress_users_userName_fk"))
   private User user;
 
-//  @OneToOne(mappedBy = "userAddress")
-//  private UserOrder order;
-
 }

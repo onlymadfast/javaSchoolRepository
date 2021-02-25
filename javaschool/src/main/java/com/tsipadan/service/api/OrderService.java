@@ -13,8 +13,6 @@ public interface OrderService {
 
   UserOrderDTO findById(long id);
 
-  UserOrderDTO getOrderInformation(String orderNum);
-
   Page<UserOrderDTO> getAllPages(int pageNumber);
 
   List<UserOrderDTO> getAllResults();

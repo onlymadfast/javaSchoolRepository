@@ -13,6 +13,9 @@ public class JMSSenderServiceImpl implements JMSSenderService {
 
   private final JmsTemplate jmsTemplate;
 
+  /**
+   * Send message point to second application
+   */
   @Override
   public void sendMessage() {
     try {

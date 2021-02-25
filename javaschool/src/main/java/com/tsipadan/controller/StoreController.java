@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class StoreController {
   /**
    * Return store with page number
    *
-   * @param model - model
+   * @param model       - model
    * @param currentPage - current page
    * @return store.jsp with number of page
    */
@@ -56,8 +55,15 @@ public class StoreController {
     return "store";
   }
 
+  /**
+   * Search product
+   *
+   * @param model   - model
+   * @param keyword - keyword
+   * @return search.jsp
+   */
   @GetMapping(value = "/search")
-  public String search(Model model, @Param("keyword")String keyword){
+  public String search(Model model, @Param("keyword") String keyword) {
     List<GoodsDTO> goodsDTOS = productService.getAll(keyword);
     model.addAttribute("search", goodsDTOS);
     model.addAttribute("keyword", keyword);
@@ -68,7 +74,7 @@ public class StoreController {
   /**
    * Get filter store by categories
    *
-   * @param model - model
+   * @param model        - model
    * @param itemCategory - itemCategory
    * @return storeByItemCategory.jsp
    */
@@ -83,8 +89,14 @@ public class StoreController {
     return "storeByItemCategory";
   }
 
+  /**
+   * Get top products
+   *
+   * @param model - model
+   * @return top.jsp
+   */
   @GetMapping(value = "/top")
-  public String topItems(Model model){
+  public String topItems(Model model) {
     List<GoodsDTO> dto = productService.getTop();
     model.addAttribute("top", dto);
     return "top";

@@ -179,19 +179,16 @@ public class AdminController {
     return "orderListAdminDetails";
   }
 
-
-////////////////////////////////////////////////////////////////////
-
   @GetMapping(value = "/changeStatus")
   public String getChangeStatusPage(Model model){
     List<UserOrderDTO> orderDTO = orderService.getAllResults();
     model.addAttribute("allOrder", orderDTO);
-    return "changeStatus";                                                   //TODO: change status order
+    return "changeStatus";
   }
 
   @PostMapping(value = "/changeStatus")
   public String changeStatus(Model model){
-
+    //
     return "redirect:/changeStatus";
   }
 

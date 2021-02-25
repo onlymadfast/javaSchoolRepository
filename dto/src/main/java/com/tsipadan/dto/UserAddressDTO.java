@@ -28,8 +28,4 @@ public class UserAddressDTO {
 
   private boolean valid;
 
-//  private UserOrderDTO userOrderDTO;
-
-//  private UserDTO userDTO;
-
 }

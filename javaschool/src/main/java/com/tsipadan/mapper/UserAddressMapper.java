@@ -21,7 +21,6 @@ public class UserAddressMapper {
     address.setUserStreet(dto.getUserStreet());
     address.setUserHouse(dto.getUserHouse());
     address.setUserApartment(dto.getUserApartment());
-//    address.setOrder(mapper.map(dto.getUserOrderDTO(), UserOrder.class));
     return address;
   }
 
@@ -33,7 +32,6 @@ public class UserAddressMapper {
     dto.setUserZip(entity.getUserZip());
     dto.setUserStreet(entity.getUserStreet());
     dto.setUserApartment(entity.getUserApartment());
-//    dto.setUserOrderDTO(mapper.map(entity.getOrder(), UserOrderDTO.class));
     return dto;
   }
 

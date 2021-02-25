@@ -30,7 +30,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -51,10 +54,10 @@ public class OrderServiceImpl implements OrderService {
    * Save order in Db
    *
    * @param userOrderDTO - user order
-   * @param userDetails - userDetails
-   * @param howPay  - howPay
-   * @param howDeliver howDeliver
-   * @param request - get some info from session cart
+   * @param userDetails  - userDetails
+   * @param howPay       - howPay
+   * @param howDeliver   howDeliver
+   * @param request      - get some info from session cart
    */
   @SneakyThrows
   @Override
@@ -63,9 +66,7 @@ public class OrderServiceImpl implements OrderService {
                         HttpServletRequest request) {
 
     User user = userRepository.findUserByUsername(userDetails.getUsername());
-
     UserOrder userOrder = userOrderMapper.toEntity(userOrderDTO);
-
     UserAddress userAddress = addressMapper.toEntity(userOrderDTO.getUserAddressDTO());
     userAddress.setId(addressRepository.findMaxId() + 1);
     userAddress.setUserCountry(userOrderDTO.getUserAddressDTO().getUserCountry());
@@ -120,18 +121,6 @@ public class OrderServiceImpl implements OrderService {
   }
 
   /**
-   * Get order information by orderNum
-   *
-   * @param orderNum - order number
-   * @return specific userOrder
-   */
-  @Override
-  @Transactional
-  public UserOrderDTO getOrderInformation(String orderNum) {
-    return userOrderMapper.toDto(orderRepository.findByOrderNum(orderNum));
-  }
-
-  /**
    * Get all orders
    *
    * @param pageNumber - page number
@@ -155,7 +144,7 @@ public class OrderServiceImpl implements OrderService {
   public List<UserOrderDTO> getUserOrderInfoByName(String name) {
     List<UserOrder> orders = orderRepository.findByUser_Username(name);
     List<UserOrderDTO> dto = new ArrayList<>();
-    for (UserOrder order : orders){
+    for (UserOrder order : orders) {
       dto.add(userOrderMapper.toDto(order));
     }
     return dto;

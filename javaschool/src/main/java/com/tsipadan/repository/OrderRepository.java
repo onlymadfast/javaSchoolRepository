@@ -1,7 +1,7 @@
 package com.tsipadan.repository;
 
-import com.tsipadan.enumaration.StatusPay;
 import com.tsipadan.entity.UserOrder;
+import com.tsipadan.enumaration.StatusPay;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,7 +22,5 @@ public interface OrderRepository extends JpaRepository<UserOrder, Long> {
   List<UserOrder> findByUser_Username(String name);
 
   Page<UserOrder> findAll(Pageable pageable);
-
-  UserOrder findUserOrderByStatusPayIsLike(StatusPay statusPay);
 
 }

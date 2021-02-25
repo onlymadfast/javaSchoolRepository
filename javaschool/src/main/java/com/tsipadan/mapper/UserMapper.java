@@ -1,14 +1,9 @@
 package com.tsipadan.mapper;
 
-import com.tsipadan.dto.UserAddressDTO;
 import com.tsipadan.dto.UserDTO;
 import com.tsipadan.entity.User;
-import com.tsipadan.entity.UserAddress;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-
-import java.util.Objects;
 
 /**
  * Convert User -> UserDTO and vice-versa

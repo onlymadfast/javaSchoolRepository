@@ -10,7 +10,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -55,12 +54,6 @@ public class User implements UserDetails {
       joinColumns = {@JoinColumn(name = "userID", referencedColumnName = "id")},
       inverseJoinColumns = {@JoinColumn(name = "userRole_ID", referencedColumnName = "id")})
   private Set<UserRole> userRoles;
-
-//  @OneToOne(mappedBy = "user")
-//  private UserAddress userAddress;
-
-//  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-//  private List<UserOrder> userOrderList;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

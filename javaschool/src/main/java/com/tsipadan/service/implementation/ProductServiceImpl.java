@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -146,13 +145,13 @@ public class ProductServiceImpl implements ProductService {
   /**
    * Get all goods by keyword
    *
-   * @param keyword
-   * @return
+   * @param keyword - keyword
+   * @return List<GoodsDTO>
    */
   @Override
   @Transactional
-  public List<GoodsDTO> getAll(String keyword){
-    if (keyword != null){
+  public List<GoodsDTO> getAll(String keyword) {
+    if (keyword != null) {
       return productRepository.findByItemNameContains(keyword).stream()
           .map(mapper::toDto).collect(Collectors.toList());
     }
@@ -172,9 +171,14 @@ public class ProductServiceImpl implements ProductService {
         .map(mapper::toDto).collect(Collectors.toList());
   }
 
+  /**
+   * Get top items
+   *
+   * @return List<GoodsDTO>
+   */
   @Override
   @Transactional
-  public List<GoodsDTO> getTop(){
+  public List<GoodsDTO> getTop() {
     return productRepository.findTop5ByOrderByItemPriceDesc().stream()
         .map(mapper::toDto).collect(Collectors.toList());
   }

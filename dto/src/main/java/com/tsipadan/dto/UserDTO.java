@@ -23,6 +23,4 @@ public class UserDTO {
   private Date userBirthday;
   private String userEmail;
 
-//  private UserAddressDTO addressDTO;
-
 }

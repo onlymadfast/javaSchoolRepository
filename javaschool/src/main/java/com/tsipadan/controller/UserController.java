@@ -46,13 +46,14 @@ public class UserController {
 
   /**
    * Get order history
+   * <p>
+   * //   * @param orderNum - order number
    *
-//   * @param orderNum - order number
    * @param model - model
    * @return userOrderHistory.jsp
    */
   @GetMapping(value = "/userHistory")
-  public String getOrderHistory( Authentication authentication, Model model) {
+  public String getOrderHistory(Authentication authentication, Model model) {
     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
     List<UserOrderDTO> dto = orderService.getUserOrderInfoByName(userDetails.getUsername());
     model.addAttribute("orders", dto);
@@ -63,7 +64,7 @@ public class UserController {
    * Get cart page
    *
    * @param request - save cart in session
-   * @param model - model
+   * @param model   - model
    * @return cart.jsp
    */
   @GetMapping(value = "/shoppingCart")
@@ -77,7 +78,7 @@ public class UserController {
    * Buy product
    *
    * @param request - save cart in session
-   * @param id - goods id
+   * @param id      - goods id
    * @return cart.jsp
    */
   @RequestMapping(value = "/buyProduct")
@@ -95,7 +96,7 @@ public class UserController {
    * Remove goods from cart
    *
    * @param request - request
-   * @param id - goods id
+   * @param id      - goods id
    * @return cart.jsp
    */
   @GetMapping(value = "/shoppingCartRemoveProduct")
@@ -117,7 +118,7 @@ public class UserController {
   /**
    * Update quantity
    *
-   * @param request - request
+   * @param request          - request
    * @param userOrderDTOForm - userOrder
    * @return cart.jsp
    */
@@ -133,8 +134,8 @@ public class UserController {
   /**
    * Get customer form
    *
-   * @param request - get in cart session
-   * @param model - model
+   * @param request        - get in cart session
+   * @param model          - model
    * @param authentication - get address from user
    * @return cartCustomerForm.jsp
    */
@@ -161,9 +162,9 @@ public class UserController {
   /**
    * Save customer form
    *
-   * @param request - request
+   * @param request        - request
    * @param userAddressDTO - userAddress
-   * @param bindingResult - result
+   * @param bindingResult  - result
    * @return cartConfirm.jsp
    */
   @PostMapping(value = "/shoppingCartCustomer")
@@ -186,7 +187,7 @@ public class UserController {
    * Get confirmation information
    *
    * @param request - request
-   * @param model - model
+   * @param model   - model
    * @return cartConfirm.jsp
    */
   @GetMapping(value = "/shoppingCartConfirmation")
@@ -210,8 +211,8 @@ public class UserController {
   @PostMapping(value = "/shoppingCartConfirmation")
   @Transactional(propagation = Propagation.NEVER)
   public String sendShoppingCartReview(HttpServletRequest request, Authentication authentication,
-                                       @RequestParam("howPay")String howPay,
-                                       @RequestParam("howDeliver")String howDeliver) {
+                                       @RequestParam("howPay") String howPay,
+                                       @RequestParam("howDeliver") String howDeliver) {
     UserOrderDTO lastOrderedCart = Utils.getCartInSession(request);
     if (lastOrderedCart.isEmpty()) {
       return "redirect:/cart";
