@@ -42,6 +42,7 @@
                 <label for="exampleInputPassword1" class="form-label">Password</label>
                 <input type="password" name="password" class="form-control" id="exampleInputPassword1"
                        required/>
+                <form:errors path="password"/>
             </div>
             <div class="mb-3">
                 <label for="fname" class="form-label">First Name</label>

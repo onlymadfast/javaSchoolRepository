@@ -1,9 +1,7 @@
 package com.tsipadan.controller;
 
 import com.tsipadan.dto.GoodsCreationDTO;
-import com.tsipadan.dto.GoodsDTO;
 import com.tsipadan.dto.UserOrderDTO;
-import com.tsipadan.enumaration.StatusOrder;
 import com.tsipadan.exception.ResourceCreationException;
 import com.tsipadan.exception.ResourceUpdateException;
 import com.tsipadan.service.api.CategoryService;
@@ -11,6 +9,7 @@ import com.tsipadan.service.api.OrderService;
 import com.tsipadan.service.api.ProductService;
 import com.tsipadan.validation.GoodsValidator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -25,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class AdminController {
@@ -77,6 +77,7 @@ public class AdminController {
 
     goodsValidator.validate(goods, result);
     if (result.hasErrors()){
+      log.info("some invalid from");
       return "redirect:/createProduct";
     }
     try {

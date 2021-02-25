@@ -3,6 +3,7 @@ package com.tsipadan.controller;
 import com.tsipadan.dto.UserDTO;
 import com.tsipadan.service.api.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class RegistrationController {
@@ -50,7 +52,7 @@ public class RegistrationController {
   public String saveUser(@Valid @ModelAttribute("userForm") UserDTO userForm,
                          BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
-      System.out.println(bindingResult.hasErrors() + " Wrong input");
+      log.info("Wrong inputs");
       return "newRegistration";
     }
     if (!userService.save(userForm)) {

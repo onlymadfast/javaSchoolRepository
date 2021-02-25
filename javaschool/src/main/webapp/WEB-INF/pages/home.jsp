@@ -106,7 +106,7 @@
                 <p class="card-text">
                     Here is the top products, see if something suits you.
                 </p>
-                <a href="#" class="btn btn-dark">Top items</a>
+                <a href="${pageContext.request.contextPath}/top" class="btn btn-dark">Top items</a>
             </div>
         </div>
         <div class="card text-center" style="width: 25rem;">

@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -46,14 +47,15 @@ public class UserController {
   /**
    * Get order history
    *
-   * @param orderNum - order number
+//   * @param orderNum - order number
    * @param model - model
    * @return userOrderHistory.jsp
    */
   @GetMapping(value = "/userHistory")
-  public String getOrderHistory(@RequestParam(value = "orderNum", defaultValue = "") String orderNum, Model model) {
-    UserOrderDTO dto = orderService.getOrderInformation(orderNum);
-    model.addAttribute("order", dto);
+  public String getOrderHistory( Authentication authentication, Model model) {
+    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    List<UserOrderDTO> dto = orderService.getUserOrderInfoByName(userDetails.getUsername());
+    model.addAttribute("orders", dto);
     return "userOrderHistory";
   }
 
@@ -220,6 +222,7 @@ public class UserController {
       UserDetails details = (UserDetails) authentication.getPrincipal();
       orderService.saveOrder(lastOrderedCart, details, howPay, howDeliver, request);
     } catch (Exception e) {
+      e.printStackTrace();
       return "cartConfirm";
     }
     Utils.removeCartInSession(request);
@@ -239,7 +242,7 @@ public class UserController {
     if (lastOrderedCart == null) {
       return "redirect:/cart";
     }
-    model.addAttribute("lastOrderedCart", lastOrderedCart);
+    model.addAttribute("lastOrderedCart", request.getAttribute("lastOrderedCart"));
     return "cartFinalPage";
   }
 

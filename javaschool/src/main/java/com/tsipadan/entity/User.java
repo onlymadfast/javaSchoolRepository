@@ -1,6 +1,6 @@
 package com.tsipadan.entity;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +13,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "userName")})
 public class User implements UserDetails {
@@ -52,8 +56,7 @@ public class User implements UserDetails {
       inverseJoinColumns = {@JoinColumn(name = "userRole_ID", referencedColumnName = "id")})
   private Set<UserRole> userRoles;
 
-//  @OneToOne(fetch = FetchType.LAZY)
-//  @JoinColumn(name = "userAddress_ID", foreignKey = @ForeignKey(name = "users_userAddress_FK"))
+//  @OneToOne(mappedBy = "user")
 //  private UserAddress userAddress;
 
 //  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")

@@ -9,7 +9,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Store</title>
+    <title>Search</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
           rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
           crossorigin="anonymous">
@@ -25,20 +25,17 @@
 <body>
 <jsp:include page="navbar.jsp"/>
 
-<div class="container-fluid p-1 div1 text-center">
-    <div class="container p-2">
-        <h4>Filter by category: </h4>
-        <c:forEach items="${listCategory}" var="cat">
-            <a class="page-item btn btn-dark" href="${pageContext.request.contextPath}/showResult/${cat.itemCategory}">${cat.itemCategory}</a>
-        </c:forEach>
-        <hr>
-        <a class="btn btn-dark" href="${pageContext.request.contextPath}/search">Search by name</a>
-        <hr>
-    </div>
+<div class="container-fluid p-2 text-center div1">
+    <form action="${pageContext.request.contextPath}/search">
+        <p>Searching by name: </p>
+        <input type="text" name="keyword" value="${keyword}" required/>&nbsp;
+        <input class="btn btn-outline-primary" type="submit" value="Search"/>&nbsp;
+        <input class="btn btn-outline-primary" type="button" value="Clear" onclick="clearFilter()"/>
+    </form>
 </div>
 
-<div class="container-fluid p-2 div1">
-    <c:forEach items="${allGoods}" var="product">
+<div class="container-fluid p-2 div1 d-flex justify-content-around">
+    <c:forEach items="${search}" var="product">
         <div class="card rounded-3" style="height: 28rem; width: 18rem;">
             <img src="${product.image}"
                  class="card-img-top rounded-pill" alt="picture" style="height: 23rem;">
@@ -69,26 +66,16 @@
         </div>
     </c:forEach>
 </div>
-<div class="container-fluid p-1 text-center div1">
-    <div class="container table p-2">
-        <hr>
-        <h6 class="card-title">Total items: ${totalItems} --- Page ${currentPage} of ${totalPages}</h6>
-        <c:forEach begin="1" end="${totalPages}" var="num">
-            <c:choose>
-                <c:when test="${num !=currentPage}">
-                    <a class="page-item btn btn-outline-dark btn-sm" href="/store/${num}">${num}</a>
-                </c:when>
-                <c:otherwise>
-                    <button class="page-item btn btn-primary btn-sm">${num}</button>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-    </div>
-</div>
 
 <jsp:include page="footer.jsp"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    function clearFilter(){
+        window.location='/store';
+    }
+</script>
 </body>
 </html>

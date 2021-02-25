@@ -5,11 +5,13 @@ import com.tsipadan.service.api.CategoryService;
 import com.tsipadan.service.api.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -54,6 +56,15 @@ public class StoreController {
     return "store";
   }
 
+  @GetMapping(value = "/search")
+  public String search(Model model, @Param("keyword")String keyword){
+    List<GoodsDTO> goodsDTOS = productService.getAll(keyword);
+    model.addAttribute("search", goodsDTOS);
+    model.addAttribute("keyword", keyword);
+    model.addAttribute("listCategory", categoryService.all());
+    return "search";
+  }
+
   /**
    * Get filter store by categories
    *
@@ -70,6 +81,13 @@ public class StoreController {
     model.addAttribute("listCategory", categoryService.all());
     model.addAttribute("goodsByCat", productService.getGoodsByItemCategory(itemCategory));
     return "storeByItemCategory";
+  }
+
+  @GetMapping(value = "/top")
+  public String topItems(Model model){
+    List<GoodsDTO> dto = productService.getTop();
+    model.addAttribute("top", dto);
+    return "top";
   }
 
 }

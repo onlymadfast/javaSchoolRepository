@@ -20,6 +20,10 @@ public interface ProductService {
 
   Page<GoodsDTO> getAllPages(int pageNumber);
 
+  List<GoodsDTO> getAll(String keyword);
+
   List<GoodsDTO> getGoodsByItemCategory(String itemCategory);
+
+  List<GoodsDTO> getTop();
 
 }

@@ -54,7 +54,7 @@
                         <li class="list-group-item">Category: ${goodsDTO.category.itemCategory}</li>
                         <li class="list-group-item">Size: ${goodsDTO.itemSize.name()}</li>
                         <li class="list-group-item">Quantity:
-                            <input name="goodsDTOList[${varStatus.index}].itemQuantity" />
+                            <input name="${varStatus.index}" />
                         </li>
 
                         <li class="list-group-item">

@@ -19,4 +19,6 @@ public interface OrderService {
 
   List<UserOrderDTO> getAllResults();
 
+  List<UserOrderDTO> getUserOrderInfoByName(String name);
+
 }
