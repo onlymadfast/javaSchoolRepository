@@ -57,7 +57,8 @@ public class ProductServiceImpl implements ProductService {
     goods.setItemCategory(category);
     goods.setItemSize(goodsDTO.getItemSize());
 
-//    jmsSenderService.sendMessage();
+    jmsSenderService.sendMessage();
+
     log.info("Goods: " + goodsDTO.getItemName() + " saved in Db");
     mapper.toDto(productRepository.save(goods));
   }

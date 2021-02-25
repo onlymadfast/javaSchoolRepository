@@ -11,6 +11,19 @@
 <h:body>
     <div class="container" id="main-container">
         <br/><br/><br/>
+
+        <p:dataTable value="#{memoryBean.goodsDTOList}" var="goods"
+                     rendered="#{memoryBean.goodsDTOList !=null}"
+                     id="goodsTable">
+            <f:facet name="header">Goods</f:facet>
+            <p:column headerText="Name">
+                <h:outputText value="#{goods.itemName}"/>
+            </p:column>
+            <p:column headerText="Price">
+                <h:outputText value="#{goods.itemPrice}"/>
+            </p:column>
+        </p:dataTable>
+
         <p:dataTable value="#{memoryBean.userOrderDtoList}" var="order"
                      rendered="#{memoryBean.userOrderDtoList !=null}" id="orderTable"
                      styleClass="order"
@@ -63,8 +76,8 @@
     <h:form>
         <f:websocket channel="push">
             <f:ajax event="updateOrders" render=":orderTable"/>
-            <f:ajax event="updateUsers" render=":orderTable"/>
-            <f:ajax event="updateGoods" render=":orderTable"/>
+            <f:ajax event="updateUsers" render=":userTable"/>
+            <f:ajax event="updateGoods" render=":goodsTable"/>
         </f:websocket>
     </h:form>
 </h:body>
